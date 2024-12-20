@@ -18,7 +18,7 @@ type CustomerTableProps = {
       id: string
       email: string | null
     }[]
-  }[]
+  }[] | null | undefined
   onSelect(email: string): void
   select: string[]
   onId(id: string): void
@@ -32,6 +32,18 @@ export const CustomerTable = ({
   onId,
   id,
 }: CustomerTableProps) => {
+  if (!domains || domains.length === 0) {
+    return (
+      <DataTable headers={EMAIL_MARKETING_HEADER}>
+        <TableRow>
+          <TableCell colSpan={4} className="text-center py-10">
+            No customers found
+          </TableCell>
+        </TableRow>
+      </DataTable>
+    )
+  }
+
   return (
     <DataTable headers={EMAIL_MARKETING_HEADER}>
       {domains.map((domain) =>

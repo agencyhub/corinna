@@ -1,52 +1,48 @@
 'use client'
-import { useThemeMode } from '@/hooks/settings/use-settings'
-import React from 'react'
-import Section from '../section-label'
-import { cn } from '@/lib/utils'
-import { SystemMode } from '../themes-placeholder/systemmode'
-import { LightMode } from '../themes-placeholder/lightmode'
-import { DarkMode } from '../themes-placeholder/darkmode'
+import { useTheme } from 'next-themes'
+import React, { useEffect, useState } from 'react'
 
-type Props = {}
+const DarkModetoggle = () => {
+  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
 
-const DarkModetoggle = (props: Props) => {
-  const { setTheme, theme } = useThemeMode()
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return (
+      <div className="flex flex-col gap-4">
+        <div className="flex gap-4">
+          <div className="rounded-2xl overflow-hidden cursor-pointer border-4 border-transparent">
+            <div className="w-[200px] h-[100px] bg-white"></div>
+          </div>
+          <div className="rounded-2xl overflow-hidden cursor-pointer border-4 border-transparent">
+            <div className="w-[200px] h-[100px] bg-[#09090B]"></div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
-      <div className="lg:col-span-1">
-        <Section
-          label="Interface Theme"
-          message="Select or customize your UI theme "
-        />
-      </div>
-      <div className="lg:col-span-4 flex lg:flex-row flex-col items-start gap-5">
+    <div className="flex flex-col gap-4">
+      <div className="flex gap-4">
         <div
-          className={cn(
-            'rounded-2xl overflow-hidden cursor-pointer border-4 border-transparent',
-            theme == 'system' && 'border-orange'
-          )}
-          onClick={() => setTheme('system')}
-        >
-          <SystemMode />
-        </div>
-        <div
-          className={cn(
-            'rounded-2xl overflow-hidden cursor-pointer border-4 border-transparent',
-            theme == 'light' && 'border-orange'
-          )}
           onClick={() => setTheme('light')}
+          className={`rounded-2xl overflow-hidden cursor-pointer border-4 ${
+            theme === 'light' ? 'border-orange' : 'border-transparent'
+          }`}
         >
-          <LightMode />
+          <div className="w-[200px] h-[100px] bg-white"></div>
         </div>
         <div
-          className={cn(
-            'rounded-2xl overflow-hidden cursor-pointer border-4 border-transparent',
-            theme == 'dark' && 'border-orange'
-          )}
           onClick={() => setTheme('dark')}
+          className={`rounded-2xl overflow-hidden cursor-pointer border-4 ${
+            theme === 'dark' ? 'border-orange' : 'border-transparent'
+          }`}
         >
-          <DarkMode />
+          <div className="w-[200px] h-[100px] bg-[#09090B]"></div>
         </div>
       </div>
     </div>

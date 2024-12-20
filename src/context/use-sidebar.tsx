@@ -1,7 +1,7 @@
 'use client'
 import { useToast } from '@/components/ui/use-toast'
 import { usePathname, useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useEffect, useState } from 'react'
 import { useChatContext } from './user-chat-context'
 import { onGetConversationMode, onToggleRealtime } from '@/actions/conversation'
@@ -17,7 +17,9 @@ const useSideBar = () => {
 
   const { chatRoom } = useChatContext()
 
-  const onActivateRealtime = async (e: any) => {
+  const currentPath = pathname?.split('/').filter(Boolean)[0] || 'dashboard'
+
+  const onActivateRealtime = useCallback(async (e: any) => {
     try {
       const realtime = await onToggleRealtime(
         chatRoom!,
@@ -33,39 +35,57 @@ const useSideBar = () => {
     } catch (error) {
       console.log(error)
     }
-  }
+  }, [chatRoom, toast])
 
-  const onGetCurrentMode = async () => {
-    setLoading(true)
-    const mode = await onGetConversationMode(chatRoom!)
-    if (mode) {
-      setRealtime(mode.live)
+  const onGetCurrentMode = useCallback(async () => {
+    try {
+      setLoading(true)
+      const mode = await onGetConversationMode(chatRoom!)
+      if (mode) {
+        setRealtime(mode.live)
+      }
+    } catch (error) {
+      console.error('Error getting conversation mode:', error)
+    } finally {
       setLoading(false)
     }
-  }
+  }, [chatRoom])
 
   useEffect(() => {
     if (chatRoom) {
       onGetCurrentMode()
     }
-  }, [chatRoom])
+  }, [chatRoom, onGetCurrentMode])
 
-  const page = pathname.split('/').pop()
   const { signOut } = useClerk()
 
-  const onSignOut = () => signOut(() => router.push('/'))
+  const onSignOut = useCallback(async () => {
+    try {
+      await signOut()
+      router.replace('/')
+    } catch (error) {
+      console.error('Error signing out:', error)
+      toast({
+        title: 'Error',
+        description: 'Failed to sign out. Please try again.',
+        variant: 'destructive',
+      })
+    }
+  }, [router, signOut, toast])
 
-  const onExpand = () => setExpand((prev) => !prev)
+  const onExpand = useCallback(() => {
+    setExpand((prev) => !prev)
+  }, [])
 
   return {
     expand,
     onExpand,
-    page,
+    page: currentPath,
     onSignOut,
     realtime,
     onActivateRealtime,
     chatRoom,
-    loading,
+    loading
   }
 }
 

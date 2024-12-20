@@ -12,7 +12,7 @@
     "@clerk/nextjs": "4.29.12",
     "@hookform/error-message": "^2.0.1",
     "@hookform/resolvers": "^3.3.4",
-    "@prisma/client": "^5.13.0",
+    "@prisma/client": "^5.22.0",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-aspect-ratio": "^1.0.3",
@@ -57,7 +57,6 @@
     "next-themes": "^0.3.0",
     "nodemailer": "^6.9.13",
     "openai": "^4.47.1",
-    "prisma": "^5.13.0",
     "pusher": "^5.2.0",
     "pusher-js": "^8.4.0-rc2",
     "react": "^18",
@@ -70,16 +69,18 @@
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^0.9.0",
-    "zod": "^3.23.6"
+    "zod": "^3.23.6",
+    "zustand": "^5.0.2"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
     "eslint": "^8",
-    "eslint-config-next": "14.2.3"
+    "eslint-config-next": "14.2.3",
+    "postcss": "^8",
+    "prisma": "^5.22.0",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
   }
 }

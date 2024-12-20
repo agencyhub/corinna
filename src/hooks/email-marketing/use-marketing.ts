@@ -54,28 +54,61 @@ export const useEmailMarketing = () => {
           title: 'Success',
           description: campaign.message,
         })
-        setLoading(false)
         router.refresh()
+      } else {
+        toast({
+          title: 'Error',
+          description: 'Failed to create campaign',
+          variant: 'destructive',
+        })
       }
     } catch (error) {
-      console.log(error)
+      console.error('Error creating campaign:', error)
+      toast({
+        title: 'Error',
+        description: 'An unexpected error occurred',
+        variant: 'destructive',
+      })
+    } finally {
+      setLoading(false)
     }
   })
 
   const onCreateEmailTemplate = SubmitEmail(async (values) => {
     try {
+      if (!campaignId) {
+        toast({
+          title: 'Error',
+          description: 'Please select a campaign first',
+          variant: 'destructive',
+        })
+        return
+      }
+
       setEditing(true)
       const template = JSON.stringify(values.description)
-      const emailTemplate = await onSaveEmailTemplate(template, campaignId!)
+      const emailTemplate = await onSaveEmailTemplate(template, campaignId)
       if (emailTemplate) {
         toast({
           title: 'Success',
           description: emailTemplate.message,
         })
-        setEditing(false)
+      } else {
+        toast({
+          title: 'Error',
+          description: 'Failed to save email template',
+          variant: 'destructive',
+        })
       }
     } catch (error) {
-      console.log(error)
+      console.error('Error creating email template:', error)
+      toast({
+        title: 'Error',
+        description: 'An unexpected error occurred',
+        variant: 'destructive',
+      })
+    } finally {
+      setEditing(false)
     }
   })
 
@@ -83,25 +116,56 @@ export const useEmailMarketing = () => {
 
   const onAddCustomersToCampaign = async () => {
     try {
+      if (!campaignId) {
+        toast({
+          title: 'Error',
+          description: 'Please select a campaign first',
+          variant: 'destructive',
+        })
+        return
+      }
+
+      if (isSelected.length === 0) {
+        toast({
+          title: 'Error',
+          description: 'Please select at least one customer',
+          variant: 'destructive',
+        })
+        return
+      }
+
       setProcessing(true)
-      const customersAdd = await onAddCustomersToEmail(isSelected, campaignId!)
+      const customersAdd = await onAddCustomersToEmail(isSelected, campaignId)
       if (customersAdd) {
         toast({
           title: 'Success',
           description: customersAdd.message,
         })
-        setProcessing(false)
         setCampaignId(undefined)
+        setIsSelected([])
         router.refresh()
+      } else {
+        toast({
+          title: 'Error',
+          description: 'Failed to add customers to campaign',
+          variant: 'destructive',
+        })
       }
     } catch (error) {
-      console.log(error)
+      console.error('Error adding customers to campaign:', error)
+      toast({
+        title: 'Error',
+        description: 'An unexpected error occurred',
+        variant: 'destructive',
+      })
+    } finally {
+      setProcessing(false)
     }
   }
 
   const onSelectedEmails = (email: string) => {
     //add or remove
-    const duplicate = isSelected.find((e) => e == email)
+    const duplicate = isSelected.find((e) => e === email)
     if (duplicate) {
       setIsSelected(isSelected.filter((e) => e !== email))
     } else {
@@ -111,16 +175,36 @@ export const useEmailMarketing = () => {
 
   const onBulkEmail = async (emails: string[], campaignId: string) => {
     try {
-      const mails = await onBulkMailer(emails, campaignId)
-      if (mails) {
+      if (emails.length === 0) {
+        toast({
+          title: 'Error',
+          description: 'No customers selected for this campaign',
+          variant: 'destructive',
+        })
+        return
+      }
+
+      const result = await onBulkMailer(emails, campaignId)
+      if (result) {
         toast({
           title: 'Success',
-          description: mails.message,
+          description: result.message,
         })
         router.refresh()
+      } else {
+        toast({
+          title: 'Error',
+          description: 'Failed to send emails',
+          variant: 'destructive',
+        })
       }
     } catch (error) {
-      console.log(error)
+      console.error('Error sending bulk emails:', error)
+      toast({
+        title: 'Error',
+        description: 'An unexpected error occurred',
+        variant: 'destructive',
+      })
     }
   }
 
@@ -157,47 +241,65 @@ export const useAnswers = (id: string) => {
     }[]
   >([])
   const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string | null>(null)
 
   const onGetCustomerAnswers = async () => {
     try {
       setLoading(true)
+      setError(null)
       const answer = await onGetAllCustomerResponses(id)
-      setLoading(false)
       if (answer) {
         setAnswers(answer)
+      } else {
+        setAnswers([])
       }
     } catch (error) {
-      console.log(error)
+      console.error('Error fetching customer answers:', error)
+      setError('Failed to fetch customer answers')
+      setAnswers([])
+    } finally {
+      setLoading(false)
     }
   }
 
   useEffect(() => {
-    onGetCustomerAnswers()
-  }, [])
+    if (id) {
+      onGetCustomerAnswers()
+    }
+  }, [id])
 
-  return { answers, loading }
+  return { answers, loading, error }
 }
 
 export const useEditEmail = (id: string) => {
   const [loading, setLoading] = useState<boolean>(false)
   const [template, setTemplate] = useState<string>('')
+  const [error, setError] = useState<string | null>(null)
 
   const onGetTemplate = async (id: string) => {
     try {
       setLoading(true)
+      setError(null)
       const email = await onGetEmailTemplate(id)
       if (email) {
         setTemplate(email)
+      } else {
+        setTemplate('')
       }
-      setLoading(false)
     } catch (error) {
-      console.log(error)
+      console.error('Error fetching email template:', error)
+      setError('Failed to fetch email template')
+      setTemplate('')
+    } finally {
+      setLoading(false)
     }
   }
 
   useEffect(() => {
-    onGetTemplate(id)
-  }, [])
+    if (id) {
+      onGetTemplate(id)
+    }
+  }, [id])
 
-  return { loading, template }
+  return { loading, template, error }
 }

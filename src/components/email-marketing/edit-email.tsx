@@ -28,7 +28,21 @@ export const EditEmail = ({
   setDefault,
 }: EditEmailProps) => {
   const { loading, template } = useEditEmail(id)
-  setDefault('description', template ? JSON.parse(template) : '')
+
+  React.useEffect(() => {
+    if (template) {
+      try {
+        const parsedTemplate = JSON.parse(template)
+        setDefault('description', parsedTemplate)
+      } catch (error) {
+        console.error('Error parsing template:', error)
+        setDefault('description', '')
+      }
+    } else {
+      setDefault('description', '')
+    }
+  }, [template, setDefault])
+
   return (
     <form
       onSubmit={onCreate}
@@ -45,7 +59,7 @@ export const EditEmail = ({
           placeholder="your email description"
           type="text"
         />
-        <Button>Save</Button>
+        <Button disabled={loading}>Save</Button>
       </Loader>
     </form>
   )

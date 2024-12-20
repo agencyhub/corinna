@@ -6,32 +6,48 @@ import Link from 'next/link'
 import React from 'react'
 import { useFormContext } from 'react-hook-form'
 
-type Props = {}
-
-const ButtonHandler = (props: Props) => {
+const ButtonHandler = () => {
   const { setCurrentStep, currentStep } = useAuthContextHook()
   const { formState, getFieldState, getValues } = useFormContext()
-  const { onGenerateOTP } = useSignUpForm()
+  const { onGenerateOTP, onSubmitOTP, loading } = useSignUpForm()
 
   const { isDirty: isName } = getFieldState('fullname', formState)
   const { isDirty: isEmail } = getFieldState('email', formState)
   const { isDirty: isPassword } = getFieldState('password', formState)
 
   if (currentStep === 3) {
+    const otp = getValues('otp')
+    const isValidOtp = otp && otp.length === 6
+
+    const handleSubmitOTP = async () => {
+      if (!isValidOtp) return
+
+      const formData = {
+        otp,
+        fullname: getValues('fullname'),
+        email: getValues('email'),
+        password: getValues('password'),
+        type: getValues('type'),
+        confirmEmail: getValues('confirmEmail'),
+        confirmPassword: getValues('confirmPassword'),
+      }
+
+      await onSubmitOTP(formData)
+    }
+
     return (
       <div className="w-full flex flex-col gap-3 items-center">
         <Button
-          type="submit"
+          type="button"
           className="w-full"
+          disabled={!isValidOtp || loading}
+          onClick={handleSubmitOTP}
         >
-          Create an account
+          {loading ? 'Creating account...' : 'Create an account'}
         </Button>
         <p>
-          Already have an account?
-          <Link
-            href="/auth/sign-in"
-            className="font-bold"
-          >
+          Already have an account?{' '}
+          <Link href="/auth/sign-in" className="font-bold">
             Sign In
           </Link>
         </p>
@@ -40,30 +56,28 @@ const ButtonHandler = (props: Props) => {
   }
 
   if (currentStep === 2) {
+    const handleGenerateOTP = async (e: React.MouseEvent) => {
+      e.preventDefault()
+      await onGenerateOTP(
+        getValues('email'),
+        getValues('password'),
+        setCurrentStep
+      )
+    }
+
     return (
       <div className="w-full flex flex-col gap-3 items-center">
         <Button
-          type="submit"
+          type="button"
           className="w-full"
-          {...(isName &&
-            isEmail &&
-            isPassword && {
-              onClick: () =>
-                onGenerateOTP(
-                  getValues('email'),
-                  getValues('password'),
-                  setCurrentStep
-                ),
-            })}
+          disabled={!(isName && isEmail && isPassword) || loading}
+          onClick={handleGenerateOTP}
         >
-          Continue
+          {loading ? 'Sending verification code...' : 'Continue'}
         </Button>
         <p>
           Already have an account?{' '}
-          <Link
-            href="/auth/sign-in"
-            className="font-bold"
-          >
+          <Link href="/auth/sign-in" className="font-bold">
             Sign In
           </Link>
         </p>
@@ -74,18 +88,18 @@ const ButtonHandler = (props: Props) => {
   return (
     <div className="w-full flex flex-col gap-3 items-center">
       <Button
-        type="submit"
+        type="button"
         className="w-full"
-        onClick={() => setCurrentStep((prev: number) => prev + 1)}
+        onClick={(e) => {
+          e.preventDefault()
+          setCurrentStep((prev: number) => prev + 1)
+        }}
       >
         Continue
       </Button>
       <p>
         Already have an account?{' '}
-        <Link
-          href="/auth/sign-in"
-          className="font-bold"
-        >
+        <Link href="/auth/sign-in" className="font-bold">
           Sign In
         </Link>
       </p>
