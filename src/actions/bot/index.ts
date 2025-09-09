@@ -406,7 +406,32 @@ export const onAiChatBotAssistant = async (
           return { response }
         }
       }
-      console.log('No customer')
+      // No email found in the message - create an anonymous customer and chatroom
+      console.log('No customer with email found. Creating anonymous chat...')
+      const anonymous = await client.domain.update({
+        where: { id: domain.id },
+        data: {
+          customer: {
+            create: {
+              email: null,
+              chatRoom: { create: {} },
+            },
+          },
+        },
+        select: {
+          customer: {
+            orderBy: { createdAt: 'desc' },
+            take: 1,
+            select: { chatRoom: { select: { id: true } }, id: true },
+          },
+        },
+      })
+
+      const anonChatRoomId = anonymous.customer[0]?.chatRoom[0]?.id
+      if (anonChatRoomId) {
+        await onStoreConversations(anonChatRoomId, message, author)
+      }
+
       const chatCompletion = await openai.chat.completions.create({
         messages: [
           {
@@ -432,6 +457,10 @@ export const onAiChatBotAssistant = async (
         const response = {
           role: 'assistant',
           content: chatCompletion.choices[0].message.content,
+        }
+
+        if (anonChatRoomId) {
+          await onStoreConversations(anonChatRoomId, response.content, 'assistant')
         }
 
         return { response }
