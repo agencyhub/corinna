@@ -420,9 +420,14 @@ export const onAiChatBotAssistant = async (
         },
         select: {
           customer: {
-            orderBy: { createdAt: 'desc' },
-            take: 1,
-            select: { chatRoom: { select: { id: true } }, id: true },
+            select: {
+              chatRoom: {
+                select: { id: true },
+                orderBy: { createdAt: 'desc' },
+                take: 1
+              },
+              id: true
+            },
           },
         },
       })
