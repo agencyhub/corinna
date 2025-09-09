@@ -11,71 +11,86 @@ const CodeSnippet = ({ id }: Props) => {
   const { toast } = useToast()
   let snippet = `<script>
     (function() {
+      function start() {
         console.log('Corinna AI Chat: Initializing...');
 
-        const iframe = document.createElement("iframe");
+        var iframe = document.createElement('iframe');
 
-        const iframeStyles = (styleString) => {
-            const style = document.createElement('style');
-            style.textContent = styleString;
-            document.head.append(style);
-        }
-
-        iframeStyles('
-            .chat-frame {
-                position: fixed;
-                bottom: 50px;
-                right: 50px;
-                border: none;
-                z-index: 9999;
-                width: 350px;
-                height: 500px;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-                border-radius: 12px;
-                overflow: hidden;
-            }
-        ')
+        var style = document.createElement('style');
+        style.textContent = '.chat-frame {\n' +
+          '  position: fixed;\n' +
+          '  bottom: 50px;\n' +
+          '  right: 50px;\n' +
+          '  border: none;\n' +
+          '  z-index: 9999;\n' +
+          '  width: 350px;\n' +
+          '  height: 500px;\n' +
+          '  box-shadow: 0 4px 20px rgba(0,0,0,0.15);\n' +
+          '  border-radius: 12px;\n' +
+          '  overflow: hidden;\n' +
+          '}';
+        document.head.append(style);
 
         // Use production URL instead of localhost
-        const chatbotUrl = window.location.hostname === 'localhost'
-            ? 'http://localhost:3000/chatbot'
-            : 'https://corinna-two.vercel.app/chatbot';
+        var chatbotUrl = window.location.hostname === 'localhost'
+          ? 'http://localhost:3000/chatbot'
+          : 'https://corinna-two.vercel.app/chatbot';
+        var chatbotOrigin = new URL(chatbotUrl).origin;
 
         iframe.src = chatbotUrl;
         iframe.classList.add('chat-frame');
         iframe.setAttribute('id', 'corinna-chat-iframe');
         iframe.setAttribute('allow', 'microphone; camera');
 
-        // Add error handling
-        iframe.onerror = function() {
-            console.error('Corinna AI Chat: Failed to load iframe');
+        iframe.onerror = function () {
+          console.error('Corinna AI Chat: Failed to load iframe');
         };
 
-        iframe.onload = function() {
-            console.log('Corinna AI Chat: Iframe loaded successfully');
-            // Send domain ID after iframe loads
-            setTimeout(() => {
-                iframe.contentWindow.postMessage("${id}", chatbotUrl);
-            }, 1000);
-        };
-
-        document.body.appendChild(iframe);
-        console.log('Corinna AI Chat: Iframe added to page');
-
-        window.addEventListener("message", (e) => {
-            if(e.origin !== chatbotUrl.replace('/chatbot', '')) return;
-
-            try {
-                let dimensions = JSON.parse(e.data);
-                iframe.width = dimensions.width || '350px';
-                iframe.height = dimensions.height || '500px';
-                console.log('Corinna AI Chat: Dimensions updated', dimensions);
-            } catch (error) {
-                console.error('Corinna AI Chat: Error parsing message', error);
+        iframe.onload = function () {
+          console.log('Corinna AI Chat: Iframe loaded successfully');
+          // Send domain ID after iframe loads
+          setTimeout(function () {
+            if (iframe.contentWindow) {
+              iframe.contentWindow.postMessage('${id}', chatbotOrigin);
             }
+          }, 1000);
+        };
+
+        if (!document.body) {
+          console.warn('Corinna AI Chat: document.body not ready yet, delaying append');
+          window.addEventListener('load', function () {
+            document.body.appendChild(iframe);
+            console.log('Corinna AI Chat: Iframe added to page (on window.load)');
+          });
+        } else {
+          document.body.appendChild(iframe);
+          console.log('Corinna AI Chat: Iframe added to page');
+        }
+
+        window.addEventListener('message', function (e) {
+          if (e.origin !== chatbotOrigin) return;
+          try {
+            var dimensions = JSON.parse(e.data);
+            if (dimensions && typeof dimensions.width !== 'undefined') {
+              iframe.style.width = String(dimensions.width) + 'px';
+            }
+            if (dimensions && typeof dimensions.height !== 'undefined') {
+              iframe.style.height = String(dimensions.height) + 'px';
+            }
+            console.log('Corinna AI Chat: Dimensions updated', dimensions);
+          } catch (error) {
+            // Ignore non-dimension messages
+          }
         });
 
         console.log('Corinna AI Chat: Setup complete');
+      }
+
+      if (document.readyState === 'loading') {
+        window.addEventListener('DOMContentLoaded', start);
+      } else {
+        start();
+      }
     })();
 </script>`
 
