@@ -18,6 +18,14 @@
     "yes": "Yes",
     "no": "No"
   },
+  "breadcrumb": {
+    "settings": "Manage your account settings, preferences and integrations",
+    "dashboard": "A detailed overview of your metrics, usage, customers and more",
+    "appointment": "View and edit all your appointments",
+    "emailMarketing": "Send bulk emails to your customers",
+    "integration": "Connect your favorite tools and services to enhance your workflow",
+    "conversation": "Modify domain settings, change chatbot options, enter sales questions and train your bot"
+  },
   "navigation": {
     "dashboard": "Dashboard",
     "conversations": "Conversations",
@@ -26,7 +34,8 @@
     "integrations": "Integrations",
     "settings": "Settings",
     "help": "Help",
-    "logout": "Logout"
+    "logout": "Logout",
+    "mobileApp": "Mobile App"
   },
   "auth": {
     "signIn": "Sign In",
@@ -90,7 +99,12 @@
     "time": "Time",
     "client": "Client",
     "service": "Service",
-    "status": "Status"
+    "status": "Status",
+    "bookingsToday": "Bookings For Today",
+    "bookingsTodayDescription": "All your bookings for today are mentioned below.",
+    "created": "Created",
+    "domain": "Domain",
+    "noAppointmentsToday": "No Appointments For Today"
   },
   "emailMarketing": {
     "title": "Email Marketing",
@@ -117,7 +131,25 @@
     "general": "General",
     "appearance": "Appearance",
     "language": "Language",
-    "timezone": "Timezone"
+    "timezone": "Timezone",
+    "domainSettings": "Domain Settings",
+    "domainSettingsDescription": "Configure your domain and integration settings",
+    "chatbotSettings": "Chatbot Settings",
+    "chatbotSettingsDescription": "Customize your chatbot appearance and behavior",
+    "premium": "Premium",
+    "domainName": "Domain name",
+    "codeSnippet": "Code Snippet",
+    "codeSnippetDescription": "Copy and paste this code snippet into the header tag of your website",
+    "copied": "Copied to clipboard",
+    "copiedDescription": "You can now paste the code inside your website"
+  },
+  "integrations": {
+    "title": "Integrations",
+    "loading": "Loading integrations...",
+    "connect": "Connect",
+    "disconnect": "Disconnect",
+    "connected": "Connected",
+    "notConnected": "Not Connected"
   },
   "chatbot": {
     "title": "Chatbot",

@@ -1,16 +1,27 @@
+'use client'
+
 import { cn } from '@/lib/utils'
+import { useTranslations } from 'next-intl'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 type Props = {
   size: 'max' | 'min'
-  label: string
+  labelKey: string
   icon: JSX.Element
   path?: string
   current?: string
   onSignOut?(): void
 }
 
-const MenuItem = ({ size, path, icon, label, current, onSignOut }: Props) => {
+const MenuItem = ({ size, path, icon, labelKey, current, onSignOut }: Props) => {
+  const t = useTranslations()
+  const pathname = usePathname()
+  const firstSegment = pathname.split('/')[1]
+  const locale = firstSegment === 'pt' || firstSegment === 'en' ? firstSegment : undefined
+  const href = path ? `${locale ? `/${locale}` : ''}/${path}` : '#'
+  const label = t(labelKey)
+
   switch (size) {
     case 'max':
       return (
@@ -24,7 +35,7 @@ const MenuItem = ({ size, path, icon, label, current, onSignOut }: Props) => {
               ? 'bg-orange-100 dark:bg-orange-900/20 text-orange-700 dark:text-orange-400 font-semibold shadow-soft'
               : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-200'
           )}
-          href={path ? `/${path}` : '#'}
+          href={href}
         >
           <div className={cn(
             'flex-shrink-0',
@@ -47,7 +58,7 @@ const MenuItem = ({ size, path, icon, label, current, onSignOut }: Props) => {
               ? 'bg-orange-100 dark:bg-orange-900/20 text-orange-700 dark:text-orange-400 shadow-soft'
               : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
           )}
-          href={path ? `/${path}` : '#'}
+          href={href}
         >
           {icon}
         </Link>

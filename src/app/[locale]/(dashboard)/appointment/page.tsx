@@ -1,29 +1,60 @@
-import { onGetAllBookingsForCurrentUser } from '@/actions/appointment'
-import AllAppointments from '@/components/appointment/all-appointments'
-import InfoBar from '@/components/infobar'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { Card, CardContent } from '@/components/ui/card'
-import { Separator } from '@/components/ui/separator'
-import { currentUser } from '@clerk/nextjs'
+'use client'
+
+import { onGetAllBookingsForCurrentUser } from '@/actions/appointment';
+import AllAppointments from '@/components/appointment/all-appointments';
+import InfoBar from '@/components/infobar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Card, CardContent } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import { useUser } from '@clerk/nextjs';
+import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
 
 type Props = {}
 
-const Page = async (props: Props) => {
-  const user = await currentUser()
+const Page = (props: Props) => {
+  const t = useTranslations('appointments')
+  const { user } = useUser()
+  const [domainBookings, setDomainBookings] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchBookings = async () => {
+      if (!user) return
+      setLoading(true)
+      const result = await onGetAllBookingsForCurrentUser(user.id)
+      setDomainBookings(result)
+      setLoading(false)
+    }
+    fetchBookings()
+  }, [user])
 
   if (!user) return null
-  const domainBookings = await onGetAllBookingsForCurrentUser(user.id)
-  const today = new Date()
+
+  if (loading) {
+    return (
+      <div className="flex flex-col h-full">
+        <InfoBar />
+        <div className="flex-1 flex items-center justify-center">
+          <p>{t('loading') || 'Loading...'}</p>
+        </div>
+      </div>
+    )
+  }
 
   if (!domainBookings)
     return (
-      <div className="w-full flex justify-center">
-        <p>No Appointments</p>
+      <div className="flex flex-col h-full">
+        <InfoBar />
+        <div className="w-full flex justify-center">
+          <p>{t('noAppointments')}</p>
+        </div>
       </div>
     )
 
+  const today = new Date()
   const bookingsExistToday = domainBookings.bookings.filter(
-    (booking) => booking.date.getDate() === today.getDate()
+    (booking: any) => booking.date.getDate() === today.getDate()
   )
 
   return (
@@ -38,15 +69,15 @@ const Page = async (props: Props) => {
 
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 shadow-soft">
             <div className="mb-6">
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Bookings For Today</h2>
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{t('bookingsToday')}</h2>
               <p className="text-gray-600 dark:text-gray-400 text-sm">
-                All your bookings for today are mentioned below.
+                {t('bookingsTodayDescription')}
               </p>
             </div>
 
             <div className="space-y-4">
               {bookingsExistToday.length ? (
-                bookingsExistToday.map((booking) => (
+                bookingsExistToday.map((booking: any) => (
                   <Card
                     key={booking.id}
                     className="rounded-xl overflow-hidden border-gray-200 dark:border-gray-700 shadow-soft hover:shadow-medium transition-all duration-200"
@@ -58,7 +89,7 @@ const Page = async (props: Props) => {
                       <div className="flex flex-col flex-1">
                         <div className="flex justify-between w-full p-4">
                           <div className="text-sm text-gray-600 dark:text-gray-400">
-                            <p className="font-medium">Created</p>
+                            <p className="font-medium">{t('created')}</p>
                             <p>
                               {booking.createdAt.getHours()}{' '}
                               {booking.createdAt.getMinutes()}{' '}
@@ -66,7 +97,7 @@ const Page = async (props: Props) => {
                             </p>
                           </div>
                           <div className="text-sm text-gray-600 dark:text-gray-400">
-                            <p className="font-medium">Domain</p>
+                            <p className="font-medium">{t('domain')}</p>
                             <p>{booking.Customer?.Domain?.name}</p>
                           </div>
                         </div>
@@ -85,7 +116,7 @@ const Page = async (props: Props) => {
                 ))
               ) : (
                 <div className="text-center py-8">
-                  <p className="text-gray-500 dark:text-gray-400">No Appointments For Today</p>
+                  <p className="text-gray-500 dark:text-gray-400">{t('noAppointmentsToday')}</p>
                 </div>
               )}
             </div>

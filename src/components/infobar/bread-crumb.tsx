@@ -1,7 +1,8 @@
 'use client'
-import useSideBar from '@/context/use-sidebar'
-import { Loader } from '../loader'
-import { Switch } from '../ui/switch'
+import useSideBar from '@/context/use-sidebar';
+import { useTranslations } from 'next-intl';
+import { Loader } from '../loader';
+import { Switch } from '../ui/switch';
 
 type Props = {}
 
@@ -16,10 +17,23 @@ const BreadCrumb = (props: Props) => {
     onSignOut,
     realtime,
   } = useSideBar()
+  const t = useTranslations()
   return (
     <div className="flex flex-col ">
       <div className="flex gap-5 items-center">
-        <h2 className="text-3xl font-bold capitalize">{page}</h2>
+        <h2 className="text-3xl font-bold capitalize">
+          {page == 'settings'
+            ? t('navigation.settings')
+            : page == 'dashboard'
+            ? t('navigation.dashboard')
+            : page == 'appointment'
+            ? t('navigation.appointments')
+            : page == 'email-marketing'
+            ? t('navigation.emailMarketing')
+            : page == 'integration'
+            ? t('navigation.integrations')
+            : t('navigation.conversations')}
+        </h2>
         {page === 'conversation' && chatRoom && (
           <Loader
             loading={loading}
@@ -35,16 +49,16 @@ const BreadCrumb = (props: Props) => {
       </div>
       <p className="text-gray-500 text-sm">
         {page == 'settings'
-          ? 'Manage your account settings, preferences and integrations'
+          ? t('breadcrumb.settings')
           : page == 'dashboard'
-          ? 'A detailed overview of your metrics, usage, customers and more'
+          ? t('breadcrumb.dashboard')
           : page == 'appointment'
-          ? 'View and edit all your appointments'
+          ? t('breadcrumb.appointment')
           : page == 'email-marketing'
-          ? 'Send bulk emails to your customers'
+          ? t('breadcrumb.emailMarketing')
           : page == 'integration'
-          ? 'Connect third-party applications into Corinna-AI'
-          : 'Modify domain settings, change chatbot options, enter sales questions and train your bot to do what you want it to.'}
+          ? t('breadcrumb.integration')
+          : t('breadcrumb.conversation')}
       </p>
     </div>
   )

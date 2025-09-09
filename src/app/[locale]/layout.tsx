@@ -1,5 +1,7 @@
 import { ClerkProvider } from '@clerk/nextjs';
 import type { Metadata } from 'next';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import '../globals.css';
 
@@ -20,15 +22,19 @@ export default async function LocaleLayout({
   // Validate that the incoming `locale` parameter is valid
   if (!locales.includes(locale as any)) notFound()
 
+  const messages = await getMessages({ locale })
+
   return (
     <ClerkProvider
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
       signInUrl={`/${locale}/auth/sign-in`}
       signUpUrl={`/${locale}/auth/sign-up`}
     >
-      <div>
-        {children}
-      </div>
+      <NextIntlClientProvider locale={locale} messages={messages}>
+        <div>
+          {children}
+        </div>
+      </NextIntlClientProvider>
     </ClerkProvider>
   )
 }

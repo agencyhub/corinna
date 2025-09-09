@@ -18,6 +18,14 @@
     "yes": "Sim",
     "no": "Não"
   },
+  "breadcrumb": {
+    "settings": "Gerencie suas configurações, preferências e integrações",
+    "dashboard": "Uma visão detalhada das suas métricas, uso, clientes e muito mais",
+    "appointment": "Veja e edite todos os seus agendamentos",
+    "emailMarketing": "Envie e-mails em massa para seus clientes",
+    "integration": "Conecte suas ferramentas e serviços favoritos para aprimorar seu fluxo de trabalho",
+    "conversation": "Modifique configurações de domínio, opções do chatbot e treine o bot para fazer o que você deseja"
+  },
   "navigation": {
     "dashboard": "Dashboard",
     "conversations": "Conversas",
@@ -26,7 +34,8 @@
     "integrations": "Integrações",
     "settings": "Configurações",
     "help": "Ajuda",
-    "logout": "Sair"
+    "logout": "Sair",
+    "mobileApp": "App Mobile"
   },
   "auth": {
     "signIn": "Entrar",
@@ -90,7 +99,12 @@
     "time": "Hora",
     "client": "Cliente",
     "service": "Serviço",
-    "status": "Status"
+    "status": "Status",
+    "bookingsToday": "Agendamentos de Hoje",
+    "bookingsTodayDescription": "Todos os seus agendamentos para hoje estão mencionados abaixo.",
+    "created": "Criado",
+    "domain": "Domínio",
+    "noAppointmentsToday": "Nenhum agendamento para hoje"
   },
   "emailMarketing": {
     "title": "Email Marketing",
@@ -117,7 +131,25 @@
     "general": "Geral",
     "appearance": "Aparência",
     "language": "Idioma",
-    "timezone": "Fuso Horário"
+    "timezone": "Fuso Horário",
+    "domainSettings": "Configurações de Domínio",
+    "domainSettingsDescription": "Configure seu domínio e as integrações",
+    "chatbotSettings": "Configurações do Chatbot",
+    "chatbotSettingsDescription": "Personalize a aparência e o comportamento do seu chatbot",
+    "premium": "Premium",
+    "domainName": "Nome do domínio",
+    "codeSnippet": "Trecho de Código",
+    "codeSnippetDescription": "Copie e cole este trecho de código dentro da tag header do seu site",
+    "copied": "Copiado para a área de transferência",
+    "copiedDescription": "Agora você pode colar o código no seu site"
+  },
+  "integrations": {
+    "title": "Integrações",
+    "loading": "Carregando integrações...",
+    "connect": "Conectar",
+    "disconnect": "Desconectar",
+    "connected": "Conectado",
+    "notConnected": "Não Conectado"
   },
   "chatbot": {
     "title": "Chatbot",

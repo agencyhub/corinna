@@ -9,39 +9,39 @@ import StarIcon from '@/icons/star-icon'
 import TimerIcon from '@/icons/timer-icon'
 
 type SIDE_BAR_MENU_PROPS = {
-  label: string
+  labelKey: string
   icon: JSX.Element
   path: string
 }
 
 export const SIDE_BAR_MENU: SIDE_BAR_MENU_PROPS[] = [
   {
-    label: 'Dashboard',
+    labelKey: 'navigation.dashboard',
     icon: <DashboardIcon />,
     path: 'dashboard',
   },
   {
-    label: 'Conversations',
+    labelKey: 'navigation.conversations',
     icon: <ChatIcon />,
     path: 'conversation',
   },
   {
-    label: 'Integrations',
+    labelKey: 'navigation.integrations',
     icon: <IntegrationsIcon />,
     path: 'integration',
   },
   {
-    label: 'Settings',
+    labelKey: 'navigation.settings',
     icon: <SettingsIcon />,
     path: 'settings',
   },
   {
-    label: 'Appointments',
+    labelKey: 'navigation.appointments',
     icon: <CalIcon />,
     path: 'appointment',
   },
   {
-    label: 'Email Marketing',
+    labelKey: 'navigation.emailMarketing',
     icon: <EmailIcon />,
     path: 'email-marketing',
   },

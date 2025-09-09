@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { useSettings } from '@/hooks/settings/use-settings'
 import PremiumBadge from '@/icons/premium-badge'
+import { useTranslations } from 'next-intl'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import CodeSnippet from './code-snippet'
@@ -29,6 +30,7 @@ type Props = {
 }
 
 const SettingsForm = ({ id, name, chatBot, plan }: Props) => {
+  const t = useTranslations('settings')
   const {
     register,
     onUpdateSettings,
@@ -42,8 +44,8 @@ const SettingsForm = ({ id, name, chatBot, plan }: Props) => {
       {/* Domain Settings Section */}
       <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 lg:p-8 border border-gray-200 dark:border-gray-700 shadow-soft">
         <div className="mb-6">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Domain Settings</h2>
-          <p className="text-gray-600 dark:text-gray-400">Configure your domain and integration settings</p>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('domainSettings', { default: 'Domain Settings' })}</h2>
+          <p className="text-gray-600 dark:text-gray-400">{t('domainSettingsDescription', { default: 'Configure your domain and integration settings' })}</p>
         </div>
         <Separator className="mb-6 bg-gray-200 dark:bg-gray-700" />
 
@@ -60,13 +62,13 @@ const SettingsForm = ({ id, name, chatBot, plan }: Props) => {
       {/* Chatbot Settings Section */}
       <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 lg:p-8 border border-gray-200 dark:border-gray-700 shadow-soft">
         <div className="flex items-center gap-4 mb-6">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Chatbot Settings</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t('chatbotSettings', { default: 'Chatbot Settings' })}</h2>
           <div className="flex items-center gap-2 bg-gradient-to-r from-orange-100 to-orange-200 dark:from-orange-900/20 dark:to-orange-800/20 rounded-full px-4 py-2 text-sm font-semibold text-orange-800 dark:text-orange-300">
             <PremiumBadge />
-            Premium
+            {t('premium', { default: 'Premium' })}
           </div>
         </div>
-        <p className="text-gray-600 dark:text-gray-400 mb-6">Customize your chatbot appearance and behavior</p>
+        <p className="text-gray-600 dark:text-gray-400 mb-6">{t('chatbotSettingsDescription', { default: 'Customize your chatbot appearance and behavior' })}</p>
         <Separator className="mb-6 bg-gray-200 dark:bg-gray-700" />
 
         <div className="grid lg:grid-cols-2 gap-8">

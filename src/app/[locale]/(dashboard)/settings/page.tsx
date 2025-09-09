@@ -1,11 +1,16 @@
+'use client'
+
 import InfoBar from '@/components/infobar'
 import BillingSettings from '@/components/settings/billing-settings'
 import ChangePassword from '@/components/settings/change-password'
 import DarkModetoggle from '@/components/settings/dark-mode'
+import { useTranslations } from 'next-intl'
 
 type Props = {}
 
 const Page = (props: Props) => {
+  const t = useTranslations('settings')
+
   return (
     <div className="flex flex-col h-full">
       <InfoBar />

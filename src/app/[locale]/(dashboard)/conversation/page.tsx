@@ -1,12 +1,26 @@
-import { onGetAllAccountDomains } from '@/actions/settings'
-import ConversationMenu from '@/components/conversations'
-import Messenger from '@/components/conversations/messenger'
-import InfoBar from '@/components/infobar'
+'use client'
+
+import { onGetAllAccountDomains } from '@/actions/settings';
+import ConversationMenu from '@/components/conversations';
+import Messenger from '@/components/conversations/messenger';
+import InfoBar from '@/components/infobar';
+import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
 
 type Props = {}
 
-const ConversationPage = async (props: Props) => {
-  const domains = await onGetAllAccountDomains()
+const ConversationPage = (props: Props) => {
+  const t = useTranslations('conversations')
+  const [domains, setDomains] = useState<any>(null)
+
+  useEffect(() => {
+    const fetchDomains = async () => {
+      const result = await onGetAllAccountDomains()
+      setDomains(result)
+    }
+    fetchDomains()
+  }, [])
+
   return (
     <div className="flex flex-col h-full">
       <InfoBar />

@@ -1,6 +1,7 @@
 'use client'
 import { useToast } from '@/components/ui/use-toast';
 import { Copy } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   id: string
@@ -8,6 +9,7 @@ type Props = {
 
 const CodeSnippet = ({ id }: Props) => {
   const { toast } = useToast()
+  const t = useTranslations('settings')
   let snippet = `<script
     src="https://corinna-two.vercel.app/embed.js"
     data-corinna-id="${id}"
@@ -17,9 +19,9 @@ const CodeSnippet = ({ id }: Props) => {
   return (
     <div className="space-y-4">
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Code Snippet</h3>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{t('codeSnippet', { default: 'Code Snippet' })}</h3>
         <p className="text-sm text-gray-600 dark:text-gray-400">
-          Copy and paste this code snippet into the header tag of your website
+          {t('codeSnippetDescription', { default: 'Copy and paste this code snippet into the header tag of your website' })}
         </p>
       </div>
 
@@ -29,8 +31,8 @@ const CodeSnippet = ({ id }: Props) => {
           onClick={() => {
             navigator.clipboard.writeText(snippet)
             toast({
-              title: 'Copied to clipboard',
-              description: 'You can now paste the code inside your website',
+              title: t('copied', { default: 'Copied to clipboard' }),
+              description: t('copiedDescription', { default: 'You can now paste the code inside your website' }),
             })
           }}
         >

@@ -1,16 +1,48 @@
+'use client'
+
 import { onGetAllCampaigns, onGetAllCustomers } from '@/actions/mail'
 import EmailMarketing from '@/components/email-marketing'
 import InfoBar from '@/components/infobar'
-import { currentUser } from '@clerk/nextjs'
+import { useUser } from '@clerk/nextjs'
+import { useTranslations } from 'next-intl'
+import { useEffect, useState } from 'react'
 
 type Props = {}
 
-const Page = async (props: Props) => {
-  const user = await currentUser()
+const Page = (props: Props) => {
+  const t = useTranslations('emailMarketing')
+  const { user } = useUser()
+  const [customers, setCustomers] = useState<any>(null)
+  const [campaigns, setCampaigns] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!user) return
+      setLoading(true)
+      const [customersData, campaignsData] = await Promise.all([
+        onGetAllCustomers(user.id),
+        onGetAllCampaigns(user.id)
+      ])
+      setCustomers(customersData)
+      setCampaigns(campaignsData)
+      setLoading(false)
+    }
+    fetchData()
+  }, [user])
 
   if (!user) return null
-  const customers = await onGetAllCustomers(user.id)
-  const campaigns = await onGetAllCampaigns(user.id)
+
+  if (loading) {
+    return (
+      <div className="flex flex-col h-full">
+        <InfoBar />
+        <div className="flex-1 flex items-center justify-center">
+          <p>{t('loading') || 'Loading...'}</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col h-full">

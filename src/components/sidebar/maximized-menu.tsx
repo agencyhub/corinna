@@ -49,7 +49,9 @@ const MaxMenu = ({ current, domains, onExpand, onSignOut }: Props) => {
               {SIDE_BAR_MENU.map((menu, key) => (
                 <MenuItem
                   size="max"
-                  {...menu}
+                  labelKey={menu.labelKey}
+                  icon={menu.icon}
+                  path={menu.path}
                   key={key}
                   current={current}
                 />
@@ -67,12 +69,12 @@ const MaxMenu = ({ current, domains, onExpand, onSignOut }: Props) => {
           <div className="space-y-2">
             <MenuItem
               size="max"
-              label="Mobile App"
+              labelKey="navigation.mobileApp"
               icon={<MonitorSmartphone />}
             />
             <MenuItem
               size="max"
-              label="Sign out"
+              labelKey="navigation.logout"
               icon={<LogOut />}
               onSignOut={onSignOut}
             />
