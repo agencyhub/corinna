@@ -75,6 +75,13 @@ export const useChatBot = () => {
 
   const onGetDomainChatBot = async (id: string) => {
     console.log('Chatbot: Getting domain chatbot for ID:', id)
+
+    // Prevent duplicate loading
+    if (currentBotId === id) {
+      console.log('Chatbot: Already loaded for this ID, skipping')
+      return
+    }
+
     setCurrentBotId(id)
     setLoading(true)
 
@@ -83,13 +90,18 @@ export const useChatBot = () => {
       console.log('Chatbot: API response:', chatbot)
 
       if (chatbot) {
-        setOnChats((prev) => [
-          ...prev,
-          {
-            role: 'assistant',
-            content: chatbot.chatBot?.welcomeMessage!,
-          },
-        ])
+        // Only add welcome message if chats are empty
+        setOnChats((prev) => {
+          if (prev.length === 0) {
+            return [
+              {
+                role: 'assistant',
+                content: chatbot.chatBot?.welcomeMessage!,
+              },
+            ]
+          }
+          return prev
+        })
         setCurrentBot(chatbot)
         setLoading(false)
         console.log('Chatbot: Successfully loaded and ready')
@@ -104,7 +116,7 @@ export const useChatBot = () => {
   }
 
   useEffect(() => {
-    window.addEventListener('message', (e) => {
+    const handleMessage = (e: MessageEvent) => {
       console.log('Message received:', e.data)
 
       // Check if it's a domain ID (not dimensions)
@@ -116,8 +128,14 @@ export const useChatBot = () => {
       } else {
         console.log('Ignoring message (not a domain ID):', botid)
       }
-    })
-  }, [])
+    }
+
+    window.addEventListener('message', handleMessage)
+
+    return () => {
+      window.removeEventListener('message', handleMessage)
+    }
+  }, [currentBotId])
 
   // Support loading chatbot directly via URL query param: /chatbot?id=DOMAIN_ID
   useEffect(() => {

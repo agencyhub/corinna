@@ -2,8 +2,21 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
   const embedScript = `(function () {
+  // Prevent multiple instances
+  if (window.corinnaChatLoaded) {
+    console.log('Corinna AI Chat: Already loaded, skipping');
+    return;
+  }
+  window.corinnaChatLoaded = true;
+
   function start() {
     try {
+      // Check if iframe already exists
+      if (document.getElementById('corinna-chat-iframe')) {
+        console.log('Corinna AI Chat: Iframe already exists, skipping');
+        return;
+      }
+
       // Try multiple methods to get the script tag
       var currentScript = document.currentScript;
       var scriptTag = null;
