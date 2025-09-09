@@ -1,15 +1,13 @@
-'use client'
-
 import InfoBar from '@/components/infobar'
 import BillingSettings from '@/components/settings/billing-settings'
 import ChangePassword from '@/components/settings/change-password'
 import DarkModetoggle from '@/components/settings/dark-mode'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 
 type Props = {}
 
-const Page = (props: Props) => {
-  const t = useTranslations('settings')
+const Page = async (props: Props) => {
+  const t = await getTranslations('settings')
 
   return (
     <div className="flex flex-col h-full">

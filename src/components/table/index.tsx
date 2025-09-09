@@ -1,9 +1,9 @@
 import {
-  Table,
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
+    Table,
+    TableBody,
+    TableHead,
+    TableHeader,
+    TableRow,
 } from '@/components/ui/table'
 import { cn } from '@/lib/utils'
 
@@ -22,7 +22,7 @@ export const DataTable = ({ headers, children }: DataTableProps) => {
               key={key}
               className={cn(
                 key == headers.length - 1 && 'text-right',
-                'text-black'
+                'text-gray-900 dark:text-gray-100'
               )}
             >
               {header}

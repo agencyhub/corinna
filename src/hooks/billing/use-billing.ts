@@ -51,8 +51,10 @@ export const useStripeCustomer = (amount: number, stripeId: string) => {
   }
 
   useEffect(() => {
-    onGetCustomerIntent(amount)
-  }, [amount, onGetCustomerIntent])
+    if (amount > 0) {
+      onGetCustomerIntent(amount)
+    }
+  }, [amount])
 
   return { stripeSecret, loadForm }
 }
@@ -154,7 +156,9 @@ export const useStripeElements = (payment: 'STANDARD' | 'PRO' | 'ULTIMATE') => {
   }
 
   useEffect(() => {
-    onGetBillingIntent(payment)
+    if (payment && (payment === 'PRO' || payment === 'ULTIMATE')) {
+      onGetBillingIntent(payment)
+    }
   }, [payment])
 
   return { stripeSecret, loadForm }

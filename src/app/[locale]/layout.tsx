@@ -1,3 +1,4 @@
+import { ThemeProvider } from '@/context/theme-provider';
 import { ClerkProvider } from '@clerk/nextjs';
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
@@ -31,9 +32,16 @@ export default async function LocaleLayout({
       signUpUrl={`/${locale}/auth/sign-up`}
     >
       <NextIntlClientProvider locale={locale} messages={messages}>
-        <div>
-          {children}
-        </div>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div>
+            {children}
+          </div>
+        </ThemeProvider>
       </NextIntlClientProvider>
     </ClerkProvider>
   )

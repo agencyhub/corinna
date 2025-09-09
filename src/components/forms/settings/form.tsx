@@ -56,6 +56,17 @@ const SettingsForm = ({ id, name, chatBot, plan }: Props) => {
             errors={errors}
           />
           <CodeSnippet id={id} />
+
+          <div className="flex justify-end">
+            <Button
+              type="submit"
+              variant="gradient"
+              className="px-8 py-3"
+              disabled={loading}
+            >
+              <Loader loading={loading}>Save Changes</Loader>
+            </Button>
+          </div>
         </form>
       </div>
 
@@ -108,15 +119,6 @@ const SettingsForm = ({ id, name, chatBot, plan }: Props) => {
           disabled={deleting}
         >
           <Loader loading={deleting}>Delete Domain</Loader>
-        </Button>
-        <Button
-          onClick={onUpdateSettings}
-          type="button"
-          variant="gradient"
-          className="px-8 py-3"
-          disabled={loading}
-        >
-          <Loader loading={loading}>Save Changes</Loader>
         </Button>
       </div>
     </div>

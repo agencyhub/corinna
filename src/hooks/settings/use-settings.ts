@@ -94,38 +94,46 @@ export const useSettings = (id: string) => {
 
   const onUpdateSettings = handleSubmit(async (values) => {
     setLoading(true)
-    if (values.domain) {
-      const domain = await onUpdateDomain(id, values.domain)
-      if (domain) {
-        toast({
-          title: 'Success',
-          description: domain.message,
-        })
+    try {
+      if (values.domain) {
+        const domain = await onUpdateDomain(id, values.domain)
+        if (domain) {
+          toast({
+            title: 'Success',
+            description: domain.message,
+          })
+        }
       }
-    }
-    if (values.image[0]) {
-      const uploaded = await upload.uploadFile(values.image[0])
-      const image = await onChatBotImageUpdate(id, uploaded.uuid)
-      if (image) {
-        toast({
-          title: image.status == 200 ? 'Success' : 'Error',
-          description: image.message,
-        })
-        setLoading(false)
+      if (values.image[0]) {
+        const uploaded = await upload.uploadFile(values.image[0])
+        const image = await onChatBotImageUpdate(id, uploaded.uuid)
+        if (image) {
+          toast({
+            title: image.status == 200 ? 'Success' : 'Error',
+            description: image.message,
+          })
+        }
       }
-    }
-    if (values.welcomeMessage) {
-      const message = await onUpdateWelcomeMessage(values.welcomeMessage, id)
-      if (message) {
-        toast({
-          title: 'Success',
-          description: message.message,
-        })
+      if (values.welcomeMessage) {
+        const message = await onUpdateWelcomeMessage(values.welcomeMessage, id)
+        if (message) {
+          toast({
+            title: 'Success',
+            description: message.message,
+          })
+        }
       }
+      reset()
+      router.refresh()
+    } catch (error) {
+      console.error('Error updating settings:', error)
+      toast({
+        title: 'Error',
+        description: 'Something went wrong while updating settings',
+      })
+    } finally {
+      setLoading(false)
     }
-    reset()
-    router.refresh()
-    setLoading(false)
   })
 
   const onDeleteDomain = async () => {
@@ -194,7 +202,7 @@ export const useHelpDesk = (id: string) => {
 
   useEffect(() => {
     onGetQuestions()
-  }, [onGetQuestions])
+  }, [id])
 
   return {
     register,
@@ -245,7 +253,7 @@ export const useFilterQuestions = (id: string) => {
 
   useEffect(() => {
     onGetQuestions()
-  }, [onGetQuestions])
+  }, [id])
 
   return {
     loading,

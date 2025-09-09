@@ -1,4 +1,5 @@
 'use client'
+import { useChatContext } from '@/context/user-chat-context';
 import { UserButton } from '@clerk/nextjs';
 import { Headphones, Star, Trash } from 'lucide-react';
 import { usePathname } from 'next/navigation';
@@ -9,7 +10,9 @@ type Props = {}
 
 const InfoBar = (props: Props) => {
   const pathname = usePathname()
+  const { chatRoom } = useChatContext()
   const isConversationPage = pathname.includes('/conversation')
+  const hasActiveChat = chatRoom && chatRoom !== undefined
 
   return (
     <div className="flex w-full justify-between items-center p-4 lg:p-5.5 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
@@ -43,10 +46,19 @@ const InfoBar = (props: Props) => {
             appearance={{
               elements: {
                 avatarBox: "h-10 w-10 ring-2 ring-gray-200 dark:ring-gray-700",
-                userButtonPopoverCard: "shadow-lg border border-gray-200 dark:border-gray-700",
-                userButtonPopoverActionButton: "hover:bg-gray-100 dark:hover:bg-gray-800",
+                userButtonPopoverCard: "bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700",
+                userButtonPopoverActionButton: "hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300",
                 userButtonPopoverActionButtonText: "text-gray-700 dark:text-gray-300",
-                userButtonPopoverFooter: "hidden" // Hide the footer with "Manage account" link
+                userButtonPopoverFooter: "hidden", // Hide the footer with "Manage account" link
+                userButtonPopoverHeader: "bg-white dark:bg-gray-800",
+                userButtonPopoverMain: "bg-white dark:bg-gray-800",
+                userButtonPopoverUserPreview: "text-gray-700 dark:text-gray-300",
+                userButtonPopoverUserPreviewMainIdentifier: "text-gray-700 dark:text-gray-300",
+                userButtonPopoverUserPreviewSecondaryIdentifier: "text-gray-500 dark:text-gray-400",
+                userButtonPopoverActionButtonIcon: "text-gray-700 dark:text-gray-300",
+                userButtonPopoverActionButtonIconBox: "text-gray-700 dark:text-gray-300",
+                userButtonPopoverActionButtonIcon__manageAccount: "text-gray-700 dark:text-gray-300",
+                userButtonPopoverActionButtonIcon__signOut: "text-gray-700 dark:text-gray-300"
               }
             }}
           />

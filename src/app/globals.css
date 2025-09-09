@@ -137,6 +137,83 @@ body {
   display: flex;
   height: 17px;
 }
+
+/* Clerk UserButton icons dark mode fix */
+.dark [data-clerk-element="userButtonPopoverActionButtonIcon"] {
+  color: rgb(209 213 219) !important; /* text-gray-300 */
+}
+
+.dark [data-clerk-element="userButtonPopoverActionButtonIcon"] svg {
+  color: rgb(209 213 219) !important; /* text-gray-300 */
+}
+
+.dark [data-clerk-element="userButtonPopoverActionButtonIcon"] path {
+  stroke: rgb(209 213 219) !important; /* text-gray-300 */
+}
+
+/* Clerk UserButton user info (email) dark mode fix */
+.dark [data-clerk-element="userButtonPopoverUserPreviewMainIdentifier"] {
+  color: rgb(209 213 219) !important; /* text-gray-300 */
+}
+
+.dark [data-clerk-element="userButtonPopoverUserPreviewMainIdentifier"] a {
+  color: rgb(209 213 219) !important; /* text-gray-300 */
+  text-decoration: none !important;
+}
+
+.dark [data-clerk-element="userButtonPopoverUserPreviewSecondaryIdentifier"] {
+  color: rgb(156 163 175) !important; /* text-gray-400 */
+}
+
+/* Clerk internal classes for user preview text */
+.dark .cl-userPreviewTextContainer {
+  color: rgb(209 213 219) !important; /* text-gray-300 */
+}
+
+.dark .cl-userPreviewTextContainer p {
+  color: rgb(209 213 219) !important; /* text-gray-300 */
+}
+
+.dark .cl-userPreviewTextContainer span {
+  color: rgb(209 213 219) !important; /* text-gray-300 */
+}
+
+.dark .cl-userPreviewTextContainer a {
+  color: rgb(209 213 219) !important; /* text-gray-300 */
+  text-decoration: none !important;
+}
+
+/* More specific selectors for Clerk internal classes */
+.dark .cl-internal-1ok83m8 {
+  color: rgb(209 213 219) !important; /* text-gray-300 */
+}
+
+.dark .cl-internal-1ok83m8 p {
+  color: rgb(209 213 219) !important; /* text-gray-300 */
+}
+
+.dark .cl-internal-1ok83m8 span {
+  color: rgb(209 213 219) !important; /* text-gray-300 */
+}
+
+.dark .cl-internal-1ok83m8 a {
+  color: rgb(209 213 219) !important; /* text-gray-300 */
+  text-decoration: none !important;
+}
+
+/* Force all text in user preview area */
+.dark .cl-userPreview {
+  color: rgb(209 213 219) !important; /* text-gray-300 */
+}
+
+.dark .cl-userPreview * {
+  color: rgb(209 213 219) !important; /* text-gray-300 */
+}
+
+.dark .cl-userPreview a {
+  color: rgb(209 213 219) !important; /* text-gray-300 */
+  text-decoration: none !important;
+}
 .typing .dot {
   animation: mercuryTypingAnimation 1.8s infinite ease-in-out;
   background-color: #ffc989;
