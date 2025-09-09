@@ -1,4 +1,3 @@
-import { client } from '@/lib/prisma'
 import { currentUser } from '@clerk/nextjs'
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
@@ -8,11 +7,14 @@ export async function GET() {
     const user = await currentUser()
     if (!user) return new NextResponse('User not authenticated')
 
-    // Initialize Stripe inside the function to avoid build-time issues
+    // Initialize Stripe and Prisma inside the function to avoid build-time issues
     const stripe = new Stripe(process.env.STRIPE_SECRET!, {
       typescript: true,
       apiVersion: '2024-04-10',
     })
+
+    // Dynamic import for Prisma to avoid build-time issues
+    const { client } = await import('@/lib/prisma')
 
     const account = await stripe.accounts.create({
       country: 'US',
