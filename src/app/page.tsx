@@ -18,16 +18,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 export default async function Home() {
-  const posts:
-    | {
-        id: string
-        title: string
-        image: string
-        content: string
-        createdAt: Date
-      }[]
-    | undefined = await onGetBlogPosts()
-  console.log(posts)
+  const posts = await onGetBlogPosts()
+  console.log('Blog posts:', posts)
   return (
     <main>
       <NavBar />

@@ -14,8 +14,6 @@ export default authMiddleware({
   ],
   // Explicitly ignore embed routes from auth checks
   ignoredRoutes: ['/chatbot', '/chatbot-iframe', '/api/embed', '/embed.js'],
-  // Add debug mode to help with clock skew issues
-  debug: true,
 })
 
 export const config = {
