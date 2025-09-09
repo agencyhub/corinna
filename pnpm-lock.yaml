@@ -113,6 +113,9 @@ importers:
       '@uploadcare/blocks':
         specifier: ^0.40.0
         version: 0.40.0
+      '@uploadcare/upload-client':
+        specifier: ^6.17.0
+        version: 6.17.0
       axios:
         specifier: ^1.7.2
         version: 1.11.0

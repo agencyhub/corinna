@@ -6,13 +6,7 @@ import {
 } from '@/schemas/conversation.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect, useRef, useState } from 'react'
-import { UploadClient } from '@uploadcare/upload-client'
-
 import { useForm } from 'react-hook-form'
-
-const upload = new UploadClient({
-  publicKey: process.env.NEXT_PUBLIC_UPLOAD_CARE_PUBLIC_KEY as string,
-})
 
 export const useChatBot = () => {
   const {
@@ -111,6 +105,13 @@ export const useChatBot = () => {
 
     if (values.image.length) {
       console.log('IMAGE fROM ', values.image[0])
+      
+      // Dynamic import for client-side only
+      const { UploadClient } = await import('@uploadcare/upload-client')
+      const upload = new UploadClient({
+        publicKey: process.env.NEXT_PUBLIC_UPLOAD_CARE_PUBLIC_KEY as string,
+      })
+      
       const uploaded = await upload.uploadFile(values.image[0])
       if (!onRealTime?.mode) {
         setOnChats((prev: any) => [
