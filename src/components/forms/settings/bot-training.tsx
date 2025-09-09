@@ -1,9 +1,8 @@
 import TabsMenu from '@/components/tabs/intex'
 import { TabsContent } from '@/components/ui/tabs'
 import { HELP_DESK_TABS_MENU } from '@/constants/menu'
-import React from 'react'
-import HelpDesk from './help-desk'
 import FilterQuestions from './filter-questions'
+import HelpDesk from './help-desk'
 
 type Props = {
   id: string
@@ -11,14 +10,15 @@ type Props = {
 
 const BotTrainingForm = ({ id }: Props) => {
   return (
-    <div className="py-5 mb-10 flex flex-col gap-5 items-start">
-      <div className="flex flex-col gap-2">
-        <h2 className="font-bold text-2xl">Bot Training</h2>
-        <p className="text-sm font-light">
+    <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 lg:p-8 border border-gray-200 dark:border-gray-700 shadow-soft">
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Bot Training</h2>
+        <p className="text-gray-600 dark:text-gray-400">
           Set FAQ questions, create questions for capturing lead information and
           train your bot to act the way you want it to.
         </p>
       </div>
+
       <TabsMenu triggers={HELP_DESK_TABS_MENU}>
         <TabsContent
           value="help desk"

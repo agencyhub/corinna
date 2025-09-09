@@ -1,11 +1,10 @@
 'use client'
 import { useThemeMode } from '@/hooks/settings/use-settings'
-import React from 'react'
-import Section from '../section-label'
 import { cn } from '@/lib/utils'
-import { SystemMode } from '../themes-placeholder/systemmode'
-import { LightMode } from '../themes-placeholder/lightmode'
+import Section from '../section-label'
 import { DarkMode } from '../themes-placeholder/darkmode'
+import { LightMode } from '../themes-placeholder/lightmode'
+import { SystemMode } from '../themes-placeholder/systemmode'
 
 type Props = {}
 

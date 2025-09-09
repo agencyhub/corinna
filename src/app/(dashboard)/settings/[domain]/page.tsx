@@ -19,9 +19,10 @@ const DomainSettingsPage = async ({ params }: Props) => {
   const domainData = domain.domains[0]
 
   return (
-    <>
+    <div className="flex flex-col h-full">
       <InfoBar />
-      <div className="overflow-y-auto w-full chat-window flex-1 h-0">
+
+      <div className="flex-1 overflow-y-auto p-6 lg:p-8 space-y-8">
         <SettingsForm
           plan={domain.subscription?.plan!}
           chatBot={domainData.chatBot || null}
@@ -34,7 +35,7 @@ const DomainSettingsPage = async ({ params }: Props) => {
           products={domainData.products || []}
         />
       </div>
-    </>
+    </div>
   )
 }
 

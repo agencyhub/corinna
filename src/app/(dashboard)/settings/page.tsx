@@ -2,20 +2,20 @@ import InfoBar from '@/components/infobar'
 import BillingSettings from '@/components/settings/billing-settings'
 import ChangePassword from '@/components/settings/change-password'
 import DarkModetoggle from '@/components/settings/dark-mode'
-import React from 'react'
 
 type Props = {}
 
 const Page = (props: Props) => {
   return (
-    <>
+    <div className="flex flex-col h-full">
       <InfoBar />
-      <div className="overflow-y-auto w-full chat-window flex-1 h-0 flex flex-col gap-10">
+
+      <div className="flex-1 overflow-y-auto p-6 lg:p-8 space-y-8">
         <BillingSettings />
         <DarkModetoggle />
         <ChangePassword />
       </div>
-    </>
+    </div>
   )
 }
 

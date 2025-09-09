@@ -1,4 +1,3 @@
-import React from 'react'
 
 import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form'
 import FormGenerator from '../form-generator'
@@ -11,7 +10,7 @@ type DomainUpdateProps = {
 
 export const DomainUpdate = ({ name, register, errors }: DomainUpdateProps) => {
   return (
-    <div className="flex gap-2 pt-5 items-end w-[400px]">
+    <div className="max-w-md">
       <FormGenerator
         label="Domain name"
         register={register}

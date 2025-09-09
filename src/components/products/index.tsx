@@ -1,13 +1,12 @@
-import React from 'react'
-import TabsMenu from '../tabs/intex'
-import { SideSheet } from '../sheet'
-import { Plus } from 'lucide-react'
-import { CreateProductForm } from './product-form'
-import { TabsContent } from '../ui/tabs'
-import { DataTable } from '../table'
-import { TableCell, TableRow } from '../ui/table'
-import Image from 'next/image'
 import { getMonthName } from '@/lib/utils'
+import { Plus } from 'lucide-react'
+import Image from 'next/image'
+import { SideSheet } from '../sheet'
+import { DataTable } from '../table'
+import TabsMenu from '../tabs/intex'
+import { TableCell, TableRow } from '../ui/table'
+import { TabsContent } from '../ui/tabs'
+import { CreateProductForm } from './product-form'
 
 type Props = {
   products: {
@@ -23,14 +22,15 @@ type Props = {
 
 const ProductTable = ({ id, products }: Props) => {
   return (
-    <div>
-      <div>
-        <h2 className="font-bold text-2xl">Products</h2>
-        <p className="text-sm font-light">
+    <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 lg:p-8 border border-gray-200 dark:border-gray-700 shadow-soft">
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Products</h2>
+        <p className="text-gray-600 dark:text-gray-400">
           Add products to your store and set them live to accept payments from
           customers.
         </p>
       </div>
+
       <TabsMenu
         className="w-full flex justify-start"
         triggers={[
@@ -43,10 +43,9 @@ const ProductTable = ({ id, products }: Props) => {
         button={
           <div className="flex-1 flex justify-end">
             <SideSheet
-              description="Add products to your store and set them live to accept payments from
-          customers."
+              description="Add products to your store and set them live to accept payments from customers."
               title="Add a product"
-              className="flex items-center gap-2 bg-orange px-4 py-2 text-black font-semibold rounded-lg text-sm"
+              className="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-4 py-2 font-semibold rounded-lg text-sm shadow-soft hover:shadow-medium transition-all duration-200"
               trigger={
                 <>
                   <Plus
@@ -63,27 +62,32 @@ const ProductTable = ({ id, products }: Props) => {
         }
       >
         <TabsContent value="All products">
-          <DataTable headers={['Featured Image', 'Name', 'Pricing', 'Created']}>
-            {products.map((product) => (
-              <TableRow key={product.id}>
-                <TableCell>
-                  <Image
-                    src={`https://ucarecdn.com/${product.image}/`}
-                    width={50}
-                    height={50}
-                    alt="image"
-                  />
-                </TableCell>
-                <TableCell>${product.name}</TableCell>
-                <TableCell>{product.price}</TableCell>
-                <TableCell className="text-right">
-                  {product.createdAt.getDate()}{' '}
-                  {getMonthName(product.createdAt.getMonth())}{' '}
-                  {product.createdAt.getFullYear()}
-                </TableCell>
-              </TableRow>
-            ))}
-          </DataTable>
+          <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4">
+            <DataTable headers={['Featured Image', 'Name', 'Pricing', 'Created']}>
+              {products.map((product) => (
+                <TableRow key={product.id} className="hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors">
+                  <TableCell>
+                    <div className="relative w-12 h-12 rounded-lg overflow-hidden">
+                      <Image
+                        src={`https://ucarecdn.com/${product.image}/`}
+                        width={50}
+                        height={50}
+                        alt="Product image"
+                        className="object-cover"
+                      />
+                    </div>
+                  </TableCell>
+                  <TableCell className="font-medium text-gray-900 dark:text-white">{product.name}</TableCell>
+                  <TableCell className="text-green-600 dark:text-green-400 font-semibold">${product.price}</TableCell>
+                  <TableCell className="text-right text-gray-600 dark:text-gray-400">
+                    {product.createdAt.getDate()}{' '}
+                    {getMonthName(product.createdAt.getMonth())}{' '}
+                    {product.createdAt.getFullYear()}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </DataTable>
+          </div>
         </TabsContent>
       </TabsMenu>
     </div>

@@ -1,12 +1,10 @@
 import { onGetAllBookingsForCurrentUser } from '@/actions/appointment'
 import AllAppointments from '@/components/appointment/all-appointments'
 import InfoBar from '@/components/infobar'
-import Section from '@/components/section-label'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Card, CardContent } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { currentUser } from '@clerk/nextjs'
-import React from 'react'
 
 type Props = {}
 
@@ -29,60 +27,72 @@ const Page = async (props: Props) => {
   )
 
   return (
-    <>
+    <div className="flex flex-col h-full">
       <InfoBar />
-      <div className="grid grid-cols-1 lg:grid-cols-3 flex-1 h-0 gap-5">
-        <div className="lg:col-span-2 overflow-y-auto">
-          <AllAppointments bookings={domainBookings?.bookings} />
-        </div>
-        <div className="col-span-1">
-          <Section
-            label="Bookings For Today"
-            message="All your bookings for today are mentioned below."
-          />
-          {bookingsExistToday.length ? (
-            bookingsExistToday.map((booking) => (
-              <Card
-                key={booking.id}
-                className="rounded-xl overflow-hidden mt-4"
-              >
-                <CardContent className="p-0 flex">
-                  <div className="w-4/12 text-xl bg-peach py-10 flex justify-center items-center font-bold">
-                    {booking.slot}
-                  </div>
-                  <div className="flex flex-col flex-1">
-                    <div className="flex justify-between w-full p-3">
-                      <p className="text-sm">
-                        created
-                        <br />
-                        {booking.createdAt.getHours()}{' '}
-                        {booking.createdAt.getMinutes()}{' '}
-                        {booking.createdAt.getHours() > 12 ? 'PM' : 'AM'}
-                      </p>
-                      <p className="text-sm">
-                        Domain <br />
-                        {booking.Customer?.Domain?.name}
-                      </p>
-                    </div>
-                    <Separator orientation="horizontal" />
-                    <div className="w-full flex items-center p-3 gap-2">
-                      <Avatar>
-                        <AvatarFallback>{booking.email[0]}</AvatarFallback>
-                      </Avatar>
-                      <p className="text-sm">{booking.email}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))
-          ) : (
-            <div className="w-full flex justify-center">
-              <p>No Appointments For Today</p>
+
+      <div className="flex-1 overflow-y-auto p-6 lg:p-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2">
+            <AllAppointments bookings={domainBookings?.bookings} />
+          </div>
+
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 shadow-soft">
+            <div className="mb-6">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Bookings For Today</h2>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                All your bookings for today are mentioned below.
+              </p>
             </div>
-          )}
+
+            <div className="space-y-4">
+              {bookingsExistToday.length ? (
+                bookingsExistToday.map((booking) => (
+                  <Card
+                    key={booking.id}
+                    className="rounded-xl overflow-hidden border-gray-200 dark:border-gray-700 shadow-soft hover:shadow-medium transition-all duration-200"
+                  >
+                    <CardContent className="p-0 flex">
+                      <div className="w-4/12 text-lg bg-gradient-to-br from-orange-100 to-orange-200 dark:from-orange-900/20 dark:to-orange-800/20 py-8 flex justify-center items-center font-bold text-orange-800 dark:text-orange-300">
+                        {booking.slot}
+                      </div>
+                      <div className="flex flex-col flex-1">
+                        <div className="flex justify-between w-full p-4">
+                          <div className="text-sm text-gray-600 dark:text-gray-400">
+                            <p className="font-medium">Created</p>
+                            <p>
+                              {booking.createdAt.getHours()}{' '}
+                              {booking.createdAt.getMinutes()}{' '}
+                              {booking.createdAt.getHours() > 12 ? 'PM' : 'AM'}
+                            </p>
+                          </div>
+                          <div className="text-sm text-gray-600 dark:text-gray-400">
+                            <p className="font-medium">Domain</p>
+                            <p>{booking.Customer?.Domain?.name}</p>
+                          </div>
+                        </div>
+                        <Separator className="bg-gray-200 dark:bg-gray-700" />
+                        <div className="w-full flex items-center p-4 gap-3">
+                          <Avatar className="h-8 w-8">
+                            <AvatarFallback className="bg-orange-100 dark:bg-orange-900/20 text-orange-800 dark:text-orange-300 text-sm font-medium">
+                              {booking.email[0].toUpperCase()}
+                            </AvatarFallback>
+                          </Avatar>
+                          <p className="text-sm font-medium text-gray-900 dark:text-white">{booking.email}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))
+              ) : (
+                <div className="text-center py-8">
+                  <p className="text-gray-500 dark:text-gray-400">No Appointments For Today</p>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

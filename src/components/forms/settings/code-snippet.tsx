@@ -1,5 +1,4 @@
 'use client'
-import Section from '@/components/section-label';
 import { useToast } from '@/components/ui/use-toast';
 import { Copy } from 'lucide-react';
 
@@ -16,14 +15,17 @@ const CodeSnippet = ({ id }: Props) => {
   ><\/script>`
 
   return (
-    <div className="mt-10 flex flex-col gap-5 items-start">
-      <Section
-        label="Code snippet"
-        message="Copy and paste this code snippet into the header tag of your website"
-      />
-      <div className="bg-cream px-10 rounded-lg inline-block relative">
-        <Copy
-          className="absolute top-5 right-5 text-gray-400 cursor-pointer"
+    <div className="space-y-4">
+      <div>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Code Snippet</h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400">
+          Copy and paste this code snippet into the header tag of your website
+        </p>
+      </div>
+
+      <div className="relative bg-gray-900 dark:bg-gray-950 rounded-xl p-6 border border-gray-700">
+        <button
+          className="absolute top-4 right-4 p-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors group"
           onClick={() => {
             navigator.clipboard.writeText(snippet)
             toast({
@@ -31,9 +33,14 @@ const CodeSnippet = ({ id }: Props) => {
               description: 'You can now paste the code inside your website',
             })
           }}
-        />
-        <pre>
-          <code className="text-gray-500">{snippet}</code>
+        >
+          <Copy className="h-4 w-4 text-gray-300 group-hover:text-white transition-colors" />
+        </button>
+
+        <pre className="overflow-x-auto">
+          <code className="text-green-400 text-sm font-mono leading-relaxed">
+            {snippet}
+          </code>
         </pre>
       </div>
     </div>

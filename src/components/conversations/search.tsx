@@ -1,4 +1,3 @@
-import React from 'react'
 import { FieldValues, UseFormRegister } from 'react-hook-form'
 
 type Props = {
@@ -14,27 +13,32 @@ type Props = {
 
 const ConversationSearch = ({ register, domains }: Props) => {
   return (
-    <div className="flex flex-col py-3">
-      <select
-        {...register('domain')}
-        className="px-3 py-4 text-sm border-[1px] rounded-lg mr-5"
-        defaultValue=""
-      >
-        <option
-          value=""
-          disabled
+    <div className="space-y-4">
+      <div>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          Filter by Domain
+        </label>
+        <select
+          {...register('domain')}
+          className="w-full px-4 py-3 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors"
+          defaultValue=""
         >
-          Domain name
-        </option>
-        {domains?.map((domain) => (
           <option
-            value={domain.id}
-            key={domain.id}
+            value=""
+            disabled
           >
-            {domain.name}
+            Select a domain
           </option>
-        ))}
-      </select>
+          {domains?.map((domain) => (
+            <option
+              value={domain.id}
+              key={domain.id}
+            >
+              {domain.name}
+            </option>
+          ))}
+        </select>
+      </div>
     </div>
   )
 }

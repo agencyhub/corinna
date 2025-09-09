@@ -1,15 +1,14 @@
 'use client'
+import { Loader } from '@/components/loader'
+import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { useSettings } from '@/hooks/settings/use-settings'
-import React from 'react'
-import { DomainUpdate } from './domain-update'
-import CodeSnippet from './code-snippet'
 import PremiumBadge from '@/icons/premium-badge'
-import EditChatbotIcon from './edit-chatbot-icon'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
-import { Button } from '@/components/ui/button'
-import { Loader } from '@/components/loader'
+import CodeSnippet from './code-snippet'
+import { DomainUpdate } from './domain-update'
+import EditChatbotIcon from './edit-chatbot-icon'
 
 const WelcomeMessage = dynamic(
   () => import('./greetings-message').then((props) => props.default),
@@ -39,31 +38,39 @@ const SettingsForm = ({ id, name, chatBot, plan }: Props) => {
     loading,
   } = useSettings(id)
   return (
-    <form
-      className="flex flex-col gap-8 pb-10"
-      onSubmit={onUpdateSettings}
-    >
-      <div className="flex flex-col gap-3">
-        <h2 className="font-bold text-2xl">Domain Settings</h2>
-        <Separator orientation="horizontal" />
-        <DomainUpdate
-          name={name}
-          register={register}
-          errors={errors}
-        />
-        <CodeSnippet id={id} />
+    <div className="space-y-8">
+      {/* Domain Settings Section */}
+      <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 lg:p-8 border border-gray-200 dark:border-gray-700 shadow-soft">
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Domain Settings</h2>
+          <p className="text-gray-600 dark:text-gray-400">Configure your domain and integration settings</p>
+        </div>
+        <Separator className="mb-6 bg-gray-200 dark:bg-gray-700" />
+
+        <form onSubmit={onUpdateSettings} className="space-y-6">
+          <DomainUpdate
+            name={name}
+            register={register}
+            errors={errors}
+          />
+          <CodeSnippet id={id} />
+        </form>
       </div>
-      <div className="flex flex-col gap-3 mt-5">
-        <div className="flex gap-4 items-center">
-          <h2 className="font-bold text-2xl">Chatbot Settings</h2>
-          <div className="flex gap-1 bg-cream rounded-full px-3 py-1 text-xs items-center font-bold">
+
+      {/* Chatbot Settings Section */}
+      <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 lg:p-8 border border-gray-200 dark:border-gray-700 shadow-soft">
+        <div className="flex items-center gap-4 mb-6">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Chatbot Settings</h2>
+          <div className="flex items-center gap-2 bg-gradient-to-r from-orange-100 to-orange-200 dark:from-orange-900/20 dark:to-orange-800/20 rounded-full px-4 py-2 text-sm font-semibold text-orange-800 dark:text-orange-300">
             <PremiumBadge />
             Premium
           </div>
         </div>
-        <Separator orientation="horizontal" />
-        <div className="grid md:grid-cols-2">
-          <div className="col-span-1 flex flex-col gap-5 order-last md:order-first">
+        <p className="text-gray-600 dark:text-gray-400 mb-6">Customize your chatbot appearance and behavior</p>
+        <Separator className="mb-6 bg-gray-200 dark:bg-gray-700" />
+
+        <div className="grid lg:grid-cols-2 gap-8">
+          <div className="space-y-6">
             <EditChatbotIcon
               chatBot={chatBot}
               register={register}
@@ -75,34 +82,42 @@ const SettingsForm = ({ id, name, chatBot, plan }: Props) => {
               errors={errors}
             />
           </div>
-          <div className="col-span-1 relative ">
-            <Image
-              src="/images/bot-ui.png"
-              className="sticky top-0"
-              alt="bot-ui"
-              width={530}
-              height={769}
-            />
+          <div className="relative">
+            <div className="sticky top-6">
+              <Image
+                src="/images/bot-ui.png"
+                alt="Bot UI Preview"
+                width={530}
+                height={769}
+                className="rounded-xl shadow-medium"
+              />
+            </div>
           </div>
         </div>
       </div>
-      <div className="flex gap-5 justify-end">
+
+      {/* Action Buttons */}
+      <div className="flex justify-end gap-4">
         <Button
           onClick={onDeleteDomain}
           variant="destructive"
           type="button"
-          className="px-10 h-[50px]"
+          className="px-8 py-3"
+          disabled={deleting}
         >
           <Loader loading={deleting}>Delete Domain</Loader>
         </Button>
         <Button
-          type="submit"
-          className="w-[100px] h-[50px]"
+          onClick={onUpdateSettings}
+          type="button"
+          variant="gradient"
+          className="px-8 py-3"
+          disabled={loading}
         >
-          <Loader loading={loading}>Save</Loader>
+          <Loader loading={loading}>Save Changes</Loader>
         </Button>
       </div>
-    </form>
+    </div>
   )
 }
 
