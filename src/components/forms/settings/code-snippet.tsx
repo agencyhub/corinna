@@ -13,6 +13,8 @@ const CodeSnippet = ({ id }: Props) => {
     (function() {
       function start() {
         console.log('Corinna AI Chat: Initializing...');
+        console.log('Corinna AI Chat: Current hostname:', window.location.hostname);
+        console.log('Corinna AI Chat: Domain ID: ${id}');
 
         var iframe = document.createElement('iframe');
 
@@ -37,14 +39,17 @@ const CodeSnippet = ({ id }: Props) => {
           : 'https://corinna-two.vercel.app/chatbot';
         var chatbotOrigin = new URL(chatbotUrl).origin;
 
+        console.log('Corinna AI Chat: Using URL:', chatbotUrl);
+        console.log('Corinna AI Chat: Origin:', chatbotOrigin);
+
         // Pass domain id in querystring for robustness
         iframe.src = chatbotUrl + '?id=${id}';
         iframe.classList.add('chat-frame');
         iframe.setAttribute('id', 'corinna-chat-iframe');
         iframe.setAttribute('allow', 'microphone; camera');
 
-        iframe.onerror = function () {
-          console.error('Corinna AI Chat: Failed to load iframe');
+        iframe.onerror = function (error) {
+          console.error('Corinna AI Chat: Failed to load iframe', error);
         };
 
         iframe.onload = function () {
@@ -52,6 +57,7 @@ const CodeSnippet = ({ id }: Props) => {
           // Send domain ID after iframe loads
           setTimeout(function () {
             if (iframe.contentWindow) {
+              console.log('Corinna AI Chat: Sending domain ID:', '${id}');
               iframe.contentWindow.postMessage('${id}', chatbotOrigin);
             }
           }, 1000);
@@ -69,7 +75,11 @@ const CodeSnippet = ({ id }: Props) => {
         }
 
         window.addEventListener('message', function (e) {
-          if (e.origin !== chatbotOrigin) return;
+          console.log('Corinna AI Chat: Message received from:', e.origin, 'Data:', e.data);
+          if (e.origin !== chatbotOrigin) {
+            console.log('Corinna AI Chat: Ignoring message from different origin');
+            return;
+          }
           try {
             var dimensions = JSON.parse(e.data);
             if (dimensions && typeof dimensions.width !== 'undefined') {
@@ -80,7 +90,7 @@ const CodeSnippet = ({ id }: Props) => {
             }
             console.log('Corinna AI Chat: Dimensions updated', dimensions);
           } catch (error) {
-            // Ignore non-dimension messages
+            console.log('Corinna AI Chat: Non-dimension message received:', e.data);
           }
         });
 
