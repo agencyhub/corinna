@@ -10,9 +10,10 @@ export default authMiddleware({
     '/api/embed',
     '/embed.js',
     '/chatbot',
+    '/chatbot-iframe',
   ],
   // Explicitly ignore embed routes from auth checks
-  ignoredRoutes: ['/chatbot', '/api/embed', '/embed.js'],
+  ignoredRoutes: ['/chatbot', '/chatbot-iframe', '/api/embed', '/embed.js'],
 })
 
 export const config = {

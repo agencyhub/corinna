@@ -53,8 +53,8 @@ export async function GET() {
 
       var iframe = document.createElement('iframe');
       var chatbotUrl = (window.location.hostname === 'localhost'
-        ? 'http://localhost:3000/chatbot'
-        : 'https://corinna-two.vercel.app/chatbot');
+        ? 'http://localhost:3000/chatbot-iframe'
+        : 'https://corinna-two.vercel.app/chatbot-iframe');
       var chatbotOrigin = new URL(chatbotUrl).origin;
 
       console.log('Corinna AI Chat: Using URL:', chatbotUrl);
