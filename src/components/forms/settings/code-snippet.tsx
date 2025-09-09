@@ -37,7 +37,8 @@ const CodeSnippet = ({ id }: Props) => {
           : 'https://corinna-two.vercel.app/chatbot';
         var chatbotOrigin = new URL(chatbotUrl).origin;
 
-        iframe.src = chatbotUrl;
+        // Pass domain id in querystring for robustness
+        iframe.src = chatbotUrl + '?id=${id}';
         iframe.classList.add('chat-frame');
         iframe.setAttribute('id', 'corinna-chat-iframe');
         iframe.setAttribute('allow', 'microphone; camera');

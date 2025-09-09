@@ -74,17 +74,31 @@ export const useChatBot = () => {
   let limitRequest = 0
 
   const onGetDomainChatBot = async (id: string) => {
+    console.log('Chatbot: Getting domain chatbot for ID:', id)
     setCurrentBotId(id)
-    const chatbot = await onGetCurrentChatBot(id)
-    if (chatbot) {
-      setOnChats((prev) => [
-        ...prev,
-        {
-          role: 'assistant',
-          content: chatbot.chatBot?.welcomeMessage!,
-        },
-      ])
-      setCurrentBot(chatbot)
+    setLoading(true)
+
+    try {
+      const chatbot = await onGetCurrentChatBot(id)
+      console.log('Chatbot: API response:', chatbot)
+
+      if (chatbot) {
+        setOnChats((prev) => [
+          ...prev,
+          {
+            role: 'assistant',
+            content: chatbot.chatBot?.welcomeMessage!,
+          },
+        ])
+        setCurrentBot(chatbot)
+        setLoading(false)
+        console.log('Chatbot: Successfully loaded and ready')
+      } else {
+        console.error('Chatbot: No chatbot found for ID:', id)
+        setLoading(false)
+      }
+    } catch (error) {
+      console.error('Chatbot: Error loading chatbot:', error)
       setLoading(false)
     }
   }
@@ -99,6 +113,21 @@ export const useChatBot = () => {
       }
     })
   }, [])
+
+  // Support loading chatbot directly via URL query param: /chatbot?id=DOMAIN_ID
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search)
+      const idFromQuery = params.get('id')
+      console.log('Chatbot: URL params check', { idFromQuery, currentBotId })
+      if (idFromQuery && !currentBotId) {
+        console.log('Chatbot: Loading domain chatbot with ID:', idFromQuery)
+        onGetDomainChatBot(idFromQuery)
+      }
+    } catch (err) {
+      console.error('Failed to parse chatbot id from URL', err)
+    }
+  }, [currentBotId])
 
   const onStartChatting = handleSubmit(async (values) => {
     console.log('ALL VALUES', values)
