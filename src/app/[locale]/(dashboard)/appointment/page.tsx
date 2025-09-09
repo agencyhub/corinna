@@ -5,6 +5,7 @@ import AllAppointments from '@/components/appointment/all-appointments';
 import InfoBar from '@/components/infobar';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Card, CardContent } from '@/components/ui/card';
+import { PageSkeleton } from '@/components/ui/page-skeleton';
 import { Separator } from '@/components/ui/separator';
 import { useUser } from '@clerk/nextjs';
 import { useTranslations } from 'next-intl';
@@ -32,14 +33,7 @@ const Page = (props: Props) => {
   if (!user) return null
 
   if (loading) {
-    return (
-      <div className="flex flex-col h-full">
-        <InfoBar />
-        <div className="flex-1 flex items-center justify-center">
-          <p>{t('loading') || 'Loading...'}</p>
-        </div>
-      </div>
-    )
+    return <PageSkeleton variant="appointment" />
   }
 
   if (!domainBookings)

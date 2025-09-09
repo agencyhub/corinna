@@ -3,6 +3,7 @@
 import { onGetAllCampaigns, onGetAllCustomers } from '@/actions/mail'
 import EmailMarketing from '@/components/email-marketing'
 import InfoBar from '@/components/infobar'
+import { PageSkeleton } from '@/components/ui/page-skeleton'
 import { useUser } from '@clerk/nextjs'
 import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
@@ -34,14 +35,7 @@ const Page = (props: Props) => {
   if (!user) return null
 
   if (loading) {
-    return (
-      <div className="flex flex-col h-full">
-        <InfoBar />
-        <div className="flex-1 flex items-center justify-center">
-          <p>{t('loading') || 'Loading...'}</p>
-        </div>
-      </div>
-    )
+    return <PageSkeleton variant="email-marketing" />
   }
 
   return (

@@ -1,8 +1,5 @@
 import { SIDE_BAR_MENU } from '@/constants/menu'
-
-
-import { MenuLogo } from '@/icons/menu-logo'
-import { LogOut, MonitorSmartphone } from 'lucide-react'
+import { LogOut, Menu, MonitorSmartphone } from 'lucide-react'
 import DomainMenu from './domain-menu'
 import MenuItem from './menu-item'
 
@@ -28,10 +25,18 @@ export const MinMenu = ({
 }: MinMenuProps) => {
   return (
     <div className="p-3 flex flex-col items-center h-full">
-      <span className="animate-fade-in opacity-0 delay-300 fill-mode-forwards cursor-pointer">
-        <MenuLogo onClick={onShrink} />
-      </span>
-      <div className="animate-fade-in opacity-0 delay-300 fill-mode-forwards flex flex-col justify-between h-full pt-10">
+      {/* Header with expand button */}
+      <div className="flex items-center justify-center w-full mb-4">
+        <button
+          onClick={onShrink}
+          className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+          title="Expand sidebar"
+        >
+          <Menu className="h-5 w-5 text-gray-600 dark:text-gray-400" />
+        </button>
+      </div>
+
+      <div className="animate-fade-in opacity-0 delay-300 fill-mode-forwards flex flex-col justify-between h-full">
         <div className="flex flex-col">
           {SIDE_BAR_MENU.map((menu, key) => (
             <MenuItem

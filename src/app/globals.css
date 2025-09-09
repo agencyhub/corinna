@@ -186,3 +186,43 @@ body {
   width: 100% !important;
   border-radius: 20px;
 }
+
+/* Sidebar animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out forwards;
+}
+
+@keyframes openSidebar {
+  from {
+    width: 60px;
+  }
+  to {
+    width: 280px;
+  }
+}
+
+@keyframes closeSidebar {
+  from {
+    width: 280px;
+  }
+  to {
+    width: 60px;
+  }
+}
+
+.animate-open-sidebar {
+  animation: openSidebar 0.3s ease-in-out forwards;
+}
+
+.animate-close-sidebar {
+  animation: closeSidebar 0.3s ease-in-out forwards;
+}

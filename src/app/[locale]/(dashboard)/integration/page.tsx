@@ -2,6 +2,7 @@
 import { onGetPaymentConnected } from '@/actions/settings';
 import InfoBar from '@/components/infobar';
 import IntegrationsList from '@/components/integrations';
+import { PageSkeleton } from '@/components/ui/page-skeleton';
 import { useEffect, useState } from 'react';
 
 const IntegrationsPage = () => {
@@ -20,14 +21,7 @@ const IntegrationsPage = () => {
   }, [])
 
   if (loading) {
-    return (
-      <div className="flex flex-col h-full">
-        <InfoBar />
-        <div className="flex-1 flex items-center justify-center">
-          <p>Carregando...</p>
-        </div>
-      </div>
-    )
+    return <PageSkeleton variant="integration" />
   }
 
   return (

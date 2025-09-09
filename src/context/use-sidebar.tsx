@@ -8,6 +8,7 @@ import { useChatContext } from './user-chat-context'
 
 const useSideBar = () => {
   const [expand, setExpand] = useState<boolean | undefined>(undefined)
+  const [isHydrated, setIsHydrated] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
   const { toast } = useToast()
@@ -15,6 +16,22 @@ const useSideBar = () => {
   const [loading, setLoading] = useState<boolean>(false)
 
   const { chatRoom } = useChatContext()
+
+  // Load state from localStorage after hydration
+  useEffect(() => {
+    const savedState = localStorage.getItem('sidebar-expanded')
+    if (savedState !== null) {
+      setExpand(savedState === 'true')
+    }
+    setIsHydrated(true)
+  }, [])
+
+  // Save sidebar state to localStorage when it changes
+  useEffect(() => {
+    if (isHydrated && expand !== undefined) {
+      localStorage.setItem('sidebar-expanded', expand.toString())
+    }
+  }, [expand, isHydrated])
 
   const onActivateRealtime = async (e: any) => {
     try {
@@ -54,7 +71,15 @@ const useSideBar = () => {
 
   const onSignOut = () => signOut(() => router.push('/'))
 
-  const onExpand = () => setExpand((prev) => !prev)
+  const onExpand = () => {
+    setExpand((prev) => {
+      if (prev === undefined) {
+        // First click - collapse from default state
+        return false
+      }
+      return !prev
+    })
+  }
 
   return {
     expand,
@@ -65,6 +90,7 @@ const useSideBar = () => {
     onActivateRealtime,
     chatRoom,
     loading,
+    isHydrated,
   }
 }
 
