@@ -6,7 +6,7 @@ import {
   onViewUnReadMessages,
 } from '@/actions/conversation'
 import { useChatContext } from '@/context/user-chat-context'
-import { getMonthName, pusherClient } from '@/lib/utils'
+import { getMonthName, getPusherClient } from '@/lib/utils'
 import {
   ChatBotMessageSchema,
   ConversationSearchSchema,
@@ -137,14 +137,23 @@ export const useChatWindow = () => {
 
   useEffect(() => {
     if (chatRoom) {
-      pusherClient.subscribe(chatRoom)
-      pusherClient.bind('realtime-mode', (data: any) => {
-        setChats((prev) => [...prev, data.chat])
-      })
+      let pusherClient: any = null
+      
+      const setupPusher = async () => {
+        pusherClient = await getPusherClient()
+        pusherClient.subscribe(chatRoom)
+        pusherClient.bind('realtime-mode', (data: any) => {
+          setChats((prev) => [...prev, data.chat])
+        })
+      }
+      
+      setupPusher()
 
       return () => {
-        pusherClient.unbind('realtime-mode')
-        pusherClient.unsubscribe(chatRoom)
+        if (pusherClient) {
+          pusherClient.unbind('realtime-mode')
+          pusherClient.unsubscribe(chatRoom)
+        }
       }
     }
   }, [chatRoom])

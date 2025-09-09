@@ -1,7 +1,5 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
-import PusherClient from 'pusher-js'
-import PusherServer from 'pusher'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -13,20 +11,27 @@ export const extractUUIDFromString = (url: string) => {
   )
 }
 
-export const pusherServer = new PusherServer({
-  appId: process.env.NEXT_PUBLIC_PUSHER_APP_ID as string,
-  key: process.env.NEXT_PUBLIC_PUSHER_APP_KEY as string,
-  secret: process.env.NEXT_PUBLIC_PUSHER_APP_SECRET as string,
-  cluster: process.env.NEXT_PUBLIC_PUSHER_APP_CLUSTER as string,
-  useTLS: true,
-})
-
-export const pusherClient = new PusherClient(
-  process.env.NEXT_PUBLIC_PUSHER_APP_KEY as string,
-  {
+// Pusher functions with dynamic imports to prevent build-time execution
+export const getPusherServer = async () => {
+  const PusherServer = (await import('pusher')).default
+  return new PusherServer({
+    appId: process.env.NEXT_PUBLIC_PUSHER_APP_ID as string,
+    key: process.env.NEXT_PUBLIC_PUSHER_APP_KEY as string,
+    secret: process.env.NEXT_PUBLIC_PUSHER_APP_SECRET as string,
     cluster: process.env.NEXT_PUBLIC_PUSHER_APP_CLUSTER as string,
-  }
-)
+    useTLS: true,
+  })
+}
+
+export const getPusherClient = async () => {
+  const PusherClient = (await import('pusher-js')).default
+  return new PusherClient(
+    process.env.NEXT_PUBLIC_PUSHER_APP_KEY as string,
+    {
+      cluster: process.env.NEXT_PUBLIC_PUSHER_APP_CLUSTER as string,
+    }
+  )
+}
 
 export const postToParent = (message: string) => {
   window.parent.postMessage(message, '*')
