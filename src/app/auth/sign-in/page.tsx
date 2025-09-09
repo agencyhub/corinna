@@ -3,7 +3,6 @@ import SignInFormProvider from '@/components/forms/sign-in/form-provider'
 import LoginForm from '@/components/forms/sign-in/login-form'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import React from 'react'
 
 const SignInPage = () => {
   return (
@@ -20,12 +19,20 @@ const SignInPage = () => {
                 Submit
               </Button>
               <p>
-                Don’t have an account?{' '}
+                Don't have an account?{' '}
                 <Link
                   href="/auth/sign-up"
                   className="font-bold"
                 >
                   Create one
+                </Link>
+              </p>
+              <p>
+                <Link
+                  href="/auth/forgot-password"
+                  className="text-sm text-blue-600 hover:text-blue-800"
+                >
+                  Forgot your password?
                 </Link>
               </p>
             </div>

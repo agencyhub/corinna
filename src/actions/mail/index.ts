@@ -38,11 +38,7 @@ export const onGetAllCustomers = async (id: string) => {
     if (customers) {
       return customers
     }
-    return null
-  } catch (error) {
-    console.error('Error fetching customers:', error)
-    return null
-  }
+  } catch (error) {}
 }
 
 export const onGetAllCampaigns = async (id: string) => {
@@ -66,10 +62,8 @@ export const onGetAllCampaigns = async (id: string) => {
     if (campaigns) {
       return campaigns
     }
-    return null
   } catch (error) {
-    console.error('Error fetching campaigns:', error)
-    return null
+    console.log(error)
   }
 }
 
@@ -137,11 +131,7 @@ export const onAddCustomersToEmail = async (
     if (customerAdd) {
       return { status: 200, message: 'Customer added to campaign' }
     }
-    return null
-  } catch (error) {
-    console.error('Error adding customers to email:', error)
-    return null
-  }
+  } catch (error) {}
 }
 
 export const onBulkMailer = async (email: string[], campaignId: string) => {

@@ -1,48 +1,52 @@
 'use client'
-import { useTheme } from 'next-themes'
-import React, { useEffect, useState } from 'react'
+import { useThemeMode } from '@/hooks/settings/use-settings'
+import React from 'react'
+import Section from '../section-label'
+import { cn } from '@/lib/utils'
+import { SystemMode } from '../themes-placeholder/systemmode'
+import { LightMode } from '../themes-placeholder/lightmode'
+import { DarkMode } from '../themes-placeholder/darkmode'
 
-const DarkModetoggle = () => {
-  const { theme, setTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
+type Props = {}
 
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  if (!mounted) {
-    return (
-      <div className="flex flex-col gap-4">
-        <div className="flex gap-4">
-          <div className="rounded-2xl overflow-hidden cursor-pointer border-4 border-transparent">
-            <div className="w-[200px] h-[100px] bg-white"></div>
-          </div>
-          <div className="rounded-2xl overflow-hidden cursor-pointer border-4 border-transparent">
-            <div className="w-[200px] h-[100px] bg-[#09090B]"></div>
-          </div>
-        </div>
-      </div>
-    )
-  }
+const DarkModetoggle = (props: Props) => {
+  const { setTheme, theme } = useThemeMode()
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex gap-4">
+    <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
+      <div className="lg:col-span-1">
+        <Section
+          label="Interface Theme"
+          message="Select or customize your UI theme "
+        />
+      </div>
+      <div className="lg:col-span-4 flex lg:flex-row flex-col items-start gap-5">
         <div
-          onClick={() => setTheme('light')}
-          className={`rounded-2xl overflow-hidden cursor-pointer border-4 ${
-            theme === 'light' ? 'border-orange' : 'border-transparent'
-          }`}
+          className={cn(
+            'rounded-2xl overflow-hidden cursor-pointer border-4 border-transparent',
+            theme == 'system' && 'border-orange'
+          )}
+          onClick={() => setTheme('system')}
         >
-          <div className="w-[200px] h-[100px] bg-white"></div>
+          <SystemMode />
         </div>
         <div
-          onClick={() => setTheme('dark')}
-          className={`rounded-2xl overflow-hidden cursor-pointer border-4 ${
-            theme === 'dark' ? 'border-orange' : 'border-transparent'
-          }`}
+          className={cn(
+            'rounded-2xl overflow-hidden cursor-pointer border-4 border-transparent',
+            theme == 'light' && 'border-orange'
+          )}
+          onClick={() => setTheme('light')}
         >
-          <div className="w-[200px] h-[100px] bg-[#09090B]"></div>
+          <LightMode />
+        </div>
+        <div
+          className={cn(
+            'rounded-2xl overflow-hidden cursor-pointer border-4 border-transparent',
+            theme == 'dark' && 'border-orange'
+          )}
+          onClick={() => setTheme('dark')}
+        >
+          <DarkMode />
         </div>
       </div>
     </div>

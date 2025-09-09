@@ -1,18 +1,19 @@
 'use client'
+import { Spinner } from '@/components/spinner'
 import { useAuthContextHook } from '@/context/use-auth-context'
-import React, { useState } from 'react'
+import dynamic from 'next/dynamic'
+import { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import TypeSelectionForm from './type-selection-form'
-import dynamic from 'next/dynamic'
 
 const DetailForm = dynamic(() => import('./account-details-form'), {
   ssr: false,
-  loading: () => <div>Loading...</div>,
+  loading: () => <Spinner />,
 })
 
 const OTPForm = dynamic(() => import('./otp-form'), {
   ssr: false,
-  loading: () => <div>Loading...</div>,
+  loading: () => <Spinner />,
 })
 
 type Props = {}
@@ -42,7 +43,11 @@ const RegistrationFormStep = (props: Props) => {
         />
       )
     case 3:
-      return <OTPForm />
+      return (
+        <OTPForm
+          errors={errors}
+        />
+      )
   }
 
   return <div>RegistrationFormStep</div>

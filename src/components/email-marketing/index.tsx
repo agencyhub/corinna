@@ -68,7 +68,7 @@ const EmailMarketing = ({ campaign, domains, subscription }: Props) => {
       <div>
         <div className="flex gap-3 justify-end">
           <Button
-            disabled={isSelected.length === 0 || !campaignId}
+            disabled={isSelected.length == 0}
             onClick={onAddCustomersToCampaign}
           >
             <Plus /> Add to campaign
@@ -107,18 +107,18 @@ const EmailMarketing = ({ campaign, domains, subscription }: Props) => {
           </Modal>
           <Card className="p-2">
             <CardDescription className="font-bold">
-              {subscription?.credits || 0} credits
+              {subscription?.credits} credits
             </CardDescription>
           </Card>
         </div>
         <div className="flex flex-col items-end mt-5 gap-3">
-          {campaign && campaign.length > 0 ? (
+          {campaign &&
             campaign.map((camp, i) => (
               <Card
                 key={camp.id}
                 className={cn(
                   'p-5 min-w-[600px] cursor-pointer',
-                  campaignId === camp.id ? 'bg-gray-50' : ''
+                  campaignId == camp.id ? 'bg-gray-50' : ''
                 )}
                 onClick={() => onSelectCampaign(camp.id)}
               >
@@ -162,10 +162,9 @@ const EmailMarketing = ({ campaign, domains, subscription }: Props) => {
                         <Button
                           variant="default"
                           className="rounded-lg"
-                          disabled={camp.customers.length === 0}
                           onClick={() =>
                             onBulkEmail(
-                              campaign[i].customers,
+                              campaign[i].customers.map((c) => c),
                               camp.id
                             )
                           }
@@ -177,12 +176,7 @@ const EmailMarketing = ({ campaign, domains, subscription }: Props) => {
                   </CardContent>
                 </Loader>
               </Card>
-            ))
-          ) : (
-            <Card className="p-5 min-w-[600px] text-center">
-              <CardDescription>No campaigns found</CardDescription>
-            </Card>
-          )}
+            ))}
         </div>
       </div>
     </div>

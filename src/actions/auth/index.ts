@@ -39,7 +39,7 @@ export const onLoginUser = async () => {
   if (!user) redirectToSignIn()
   else {
     try {
-      const authenticated = await client.user.findUnique({
+      let authenticated = await client.user.findUnique({
         where: {
           clerkId: user.id,
         },
@@ -49,11 +49,35 @@ export const onLoginUser = async () => {
           type: true,
         },
       })
+
+      // If user doesn't exist in database, create them automatically
+      if (!authenticated) {
+        console.log('User not found in database, creating automatically...')
+        const newUser = await client.user.create({
+          data: {
+            fullname: user.fullName || 'User',
+            clerkId: user.id,
+            type: 'owner', // Default type
+            subscription: {
+              create: {},
+            },
+          },
+          select: {
+            fullname: true,
+            id: true,
+            type: true,
+          },
+        })
+        authenticated = newUser
+        console.log('User created successfully:', newUser)
+      }
+
       if (authenticated) {
         const domains = await onGetAllAccountDomains()
         return { status: 200, user: authenticated, domain: domains?.domains }
       }
     } catch (error) {
+      console.error('Error in onLoginUser:', error)
       return { status: 400 }
     }
   }

@@ -1,9 +1,9 @@
-import type { Metadata } from 'next'
+import { Toaster } from '@/components/ui/toaster'
+import { ThemeProvider } from '@/context/theme-provider'
 import { ClerkProvider } from '@clerk/nextjs'
+import type { Metadata } from 'next'
 import { Plus_Jakarta_Sans } from 'next/font/google'
 import './globals.css'
-import { Toaster } from '@/components/ui/toaster'
-import { ThemeProvider } from '@/context/them-provider'
 
 const jakarta = Plus_Jakarta_Sans({ subsets: ['latin'] })
 
@@ -20,16 +20,20 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
+        <head>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+        </head>
         <body className={jakarta.className} suppressHydrationWarning>
           <ThemeProvider
             attribute="class"
-            defaultTheme="light"
+            defaultTheme="system"
             enableSystem
             disableTransitionOnChange
-            storageKey="corinna-theme"
           >
-            {children}
-            <Toaster />
+            <div suppressHydrationWarning>
+              {children}
+              <Toaster />
+            </div>
           </ThemeProvider>
         </body>
       </html>
