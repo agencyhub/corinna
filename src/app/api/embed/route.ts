@@ -4,19 +4,37 @@ export async function GET() {
   const embedScript = `(function () {
   function start() {
     try {
+      // Try multiple methods to get the script tag
       var currentScript = document.currentScript;
-      if (!currentScript) {
-        console.warn('Corinna AI Chat: currentScript not found');
+      var scriptTag = null;
+
+      if (currentScript) {
+        scriptTag = currentScript;
+      } else {
+        // Fallback: find script tag by src
+        var scripts = document.getElementsByTagName('script');
+        for (var i = 0; i < scripts.length; i++) {
+          if (scripts[i].src && scripts[i].src.includes('/api/embed')) {
+            scriptTag = scripts[i];
+            break;
+          }
+        }
+      }
+
+      if (!scriptTag) {
+        console.warn('Corinna AI Chat: Script tag not found');
         return;
       }
 
-      var domainId = currentScript.getAttribute('data-corinna-id');
+      var domainId = scriptTag.getAttribute('data-corinna-id');
       if (!domainId) {
         console.warn('Corinna AI Chat: data-corinna-id not provided');
         return;
       }
 
       console.log('Corinna AI Chat: Initializing for domain:', domainId);
+      console.log('Corinna AI Chat: Script tag found:', scriptTag);
+      console.log('Corinna AI Chat: Current hostname:', window.location.hostname);
 
       var style = document.createElement('style');
       style.textContent = '.chat-frame {\\n' +
