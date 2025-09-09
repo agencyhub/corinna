@@ -55,7 +55,7 @@ export const onLoginUser = async () => {
         console.log('User not found in database, creating automatically...')
         const newUser = await client.user.create({
           data: {
-            fullname: user.fullName || 'User',
+            fullname: `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'User',
             clerkId: user.id,
             type: 'owner', // Default type
             subscription: {

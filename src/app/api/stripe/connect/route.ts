@@ -148,5 +148,8 @@ export async function GET() {
       'An error occurred when calling the Stripe API to create an account:',
       error
     )
+    return NextResponse.json({ error: 'Failed to create Stripe account' }, { status: 500 })
   }
+
+  return NextResponse.json({ error: 'Failed to create Stripe account' }, { status: 500 })
 }

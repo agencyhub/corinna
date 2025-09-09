@@ -1,10 +1,10 @@
 'use client'
-import OTPInput from '@/components/otp'
-import { Button } from '@/components/ui/button'
-import { useResetPasswordContext } from '@/context/use-reset-password-context'
-import { useEffect, useState } from 'react'
-import { useFormContext } from 'react-hook-form'
-import FormGenerator from '../form-generator'
+import OTPInput from '@/components/otp';
+import { Button } from '@/components/ui/button';
+import { useResetPasswordContext } from '@/context/use-reset-password-context';
+import { useEffect, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
+import FormGenerator from '../form-generator';
 
 type Props = {}
 
@@ -35,7 +35,9 @@ const ResetPasswordForm = (props: Props) => {
             <OTPInput otp={codeValue} setOtp={(value) => setValue('code', value)} />
           </div>
           {errors?.code && codeValue.length > 0 && (
-            <p className="text-red-500 text-sm text-center">{errors.code.message}</p>
+            <p className="text-red-500 text-sm text-center">
+              {String(errors.code?.message || 'Invalid code')}
+            </p>
           )}
           <Button type="submit" className="w-full" disabled={loading || codeValue.length !== 6 || !codeValue}>
             {loading ? 'Verifying...' : 'Verify Code'}
@@ -60,7 +62,11 @@ const ResetPasswordForm = (props: Props) => {
             inputType="input"
           />
           {errors?.password && watch('password') && (
-            <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
+            <p className="text-red-500 text-sm mt-1">
+              {typeof errors.password.message === 'string'
+                ? errors.password.message
+                : 'Invalid password'}
+            </p>
           )}
         </div>
         <div>
@@ -73,7 +79,11 @@ const ResetPasswordForm = (props: Props) => {
             inputType="input"
           />
           {errors?.confirmPassword && watch('confirmPassword') && (
-            <p className="text-red-500 text-sm mt-1">{errors.confirmPassword.message}</p>
+            <p className="text-red-500 text-sm mt-1">
+              {typeof errors.confirmPassword.message === 'string'
+                ? errors.confirmPassword.message
+                : 'Invalid password'}
+            </p>
           )}
         </div>
         <Button type="submit" className="w-full" disabled={loading}>

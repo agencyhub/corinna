@@ -6,7 +6,7 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
   experimental: {
-    optimizeCss: true,
+    // optimizeCss: true, // Disabled due to build issues
   },
   images: {
     remotePatterns: [

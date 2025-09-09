@@ -1,12 +1,12 @@
 'use server'
 
-import { client } from '@/lib/prisma'
-import { currentUser } from '@clerk/nextjs'
-import Stripe from 'stripe'
+import { client } from '@/lib/prisma';
+import { currentUser } from '@clerk/nextjs';
+import Stripe from 'stripe';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET!, {
   typescript: true,
-  apiVersion: '2023-10-16',
+  apiVersion: '2024-04-10',
 })
 
 export const getUserClients = async () => {
@@ -129,7 +129,7 @@ export const getUserTotalProductPrices = async () => {
       },
     })
 
-    const total = products.reduce((total, next) => {
+    const total = products.reduce((total: number, next: { price: number }) => {
       return total + next.price
     }, 0)
 

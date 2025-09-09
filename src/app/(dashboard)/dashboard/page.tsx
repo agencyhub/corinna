@@ -102,7 +102,7 @@ const Page = async (props: Props) => {
     return (
       <div className="flex flex-col items-center justify-center h-screen">
         <h1 className="text-2xl font-bold text-red-500">Oops! Something went wrong</h1>
-        <p className="text-gray-600">We're having trouble connecting to the database. Please try again later.</p>
+        <p className="text-gray-600">We&apos;re having trouble connecting to the database. Please try again later.</p>
       </div>
     )
   }
