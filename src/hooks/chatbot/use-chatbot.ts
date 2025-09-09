@@ -105,11 +105,16 @@ export const useChatBot = () => {
 
   useEffect(() => {
     window.addEventListener('message', (e) => {
-      console.log(e.data)
+      console.log('Message received:', e.data)
+
+      // Check if it's a domain ID (not dimensions)
       const botid = e.data
-      if (limitRequest < 1 && typeof botid == 'string') {
+      if (limitRequest < 1 && typeof botid === 'string' && !botid.includes('{') && !botid.includes('width')) {
+        console.log('Valid domain ID received:', botid)
         onGetDomainChatBot(botid)
         limitRequest++
+      } else {
+        console.log('Ignoring message (not a domain ID):', botid)
       }
     })
   }, [])

@@ -4,9 +4,22 @@ import { client } from '@/lib/prisma'
 
 export const onGetDomainProductsAndConnectedAccountId = async (id: string) => {
   try {
+    // First try to find by UUID, then by name
+    let domain = await client.domain.findUnique({
+      where: { id },
+    })
+
+    if (!domain) {
+      domain = await client.domain.findFirst({
+        where: { name: id },
+      })
+    }
+
+    if (!domain) return null
+
     const connectedAccount = await client.domain.findUnique({
       where: {
-        id,
+        id: domain.id,
       },
       select: {
         User: {
@@ -19,7 +32,7 @@ export const onGetDomainProductsAndConnectedAccountId = async (id: string) => {
 
     const products = await client.product.findMany({
       where: {
-        domainId: id,
+        domainId: domain.id,
       },
       select: {
         price: true,
@@ -42,5 +55,3 @@ export const onGetDomainProductsAndConnectedAccountId = async (id: string) => {
     console.log(error)
   }
 }
-
-

@@ -2,14 +2,36 @@
 
 import { client } from '@/lib/prisma'
 import { extractEmailsFromString, extractURLfromString } from '@/lib/utils'
-import { onRealTimeChat } from '../conversation'
 import { clerkClient } from '@clerk/nextjs'
-import { onMailer } from '../mailer'
 import OpenAi from 'openai'
+import { onRealTimeChat } from '../conversation'
+import { onMailer } from '../mailer'
 
 const openai = new OpenAi({
   apiKey: process.env.OPEN_AI_KEY,
 })
+
+// Helper function to find domain by ID or name
+const findDomainByIdOrName = async (id: string) => {
+  console.log('findDomainByIdOrName: Searching for:', id)
+
+  // First try to find by UUID (if it's a valid UUID)
+  let domain = await client.domain.findUnique({
+    where: { id },
+  })
+  console.log('findDomainByIdOrName: UUID search result:', domain)
+
+  // If not found by UUID, try to find by domain name
+  if (!domain) {
+    console.log('findDomainByIdOrName: Trying name search for:', id)
+    domain = await client.domain.findFirst({
+      where: { name: id },
+    })
+    console.log('findDomainByIdOrName: Name search result:', domain)
+  }
+
+  return domain
+}
 
 export const onStoreConversations = async (
   id: string,
@@ -33,31 +55,94 @@ export const onStoreConversations = async (
 
 export const onGetCurrentChatBot = async (id: string) => {
   try {
-    const chatbot = await client.domain.findUnique({
-      where: {
-        id,
-      },
+    console.log('onGetCurrentChatBot: Looking for domain with ID/name:', id)
+
+    // First, let's check if there are any domains in the database
+    const allDomains = await client.domain.findMany({
       select: {
-        helpdesk: true,
+        id: true,
         name: true,
         chatBot: {
           select: {
             id: true,
             welcomeMessage: true,
-            icon: true,
-            textColor: true,
-            background: true,
-            helpdesk: true,
           },
         },
       },
     })
+    console.log('onGetCurrentChatBot: All domains in database:', allDomains)
 
-    if (chatbot) {
+    const domain = await findDomainByIdOrName(id)
+    console.log('onGetCurrentChatBot: Found domain:', domain)
+
+    if (domain) {
+      const chatbot = await client.domain.findUnique({
+        where: {
+          id: domain.id,
+        },
+        select: {
+          helpdesk: true,
+          name: true,
+          chatBot: {
+            select: {
+              id: true,
+              welcomeMessage: true,
+              icon: true,
+              textColor: true,
+              background: true,
+              helpdesk: true,
+            },
+          },
+        },
+      })
+
+      console.log('onGetCurrentChatBot: Chatbot data:', chatbot)
       return chatbot
+    } else {
+      console.log('onGetCurrentChatBot: No domain found for:', id)
+
+      // If domain doesn't exist, create a default one for testing
+      if (id === 'fleekdash.com') {
+        console.log('onGetCurrentChatBot: Creating default domain for testing')
+        try {
+          const newDomain = await client.domain.create({
+            data: {
+              name: 'fleekdash.com',
+              icon: 'default-icon',
+              chatBot: {
+                create: {
+                  welcomeMessage: 'Hello! How can I help you today?',
+                  helpdesk: false,
+                },
+              },
+            },
+            select: {
+              helpdesk: true,
+              name: true,
+              chatBot: {
+                select: {
+                  id: true,
+                  welcomeMessage: true,
+                  icon: true,
+                  textColor: true,
+                  background: true,
+                  helpdesk: true,
+                },
+              },
+            },
+          })
+          console.log('onGetCurrentChatBot: Created default domain:', newDomain)
+          return newDomain
+        } catch (createError) {
+          console.log('Error creating default domain:', createError)
+        }
+      }
+
+      return null
     }
   } catch (error) {
-    console.log(error)
+    console.log('Error in onGetCurrentChatBot:', error)
+    return null
   }
 }
 
@@ -70,9 +155,16 @@ export const onAiChatBotAssistant = async (
   message: string
 ) => {
   try {
+    const domain = await findDomainByIdOrName(id)
+
+    if (!domain) {
+      console.log('Domain not found:', id)
+      return
+    }
+
     const chatBotDomain = await client.domain.findUnique({
       where: {
-        id,
+        id: domain.id,
       },
       select: {
         name: true,
@@ -95,7 +187,7 @@ export const onAiChatBotAssistant = async (
       if (customerEmail) {
         const checkCustomer = await client.domain.findUnique({
           where: {
-            id,
+            id: domain.id,
           },
           select: {
             User: {
@@ -128,7 +220,7 @@ export const onAiChatBotAssistant = async (
         if (checkCustomer && !checkCustomer.customer.length) {
           const newCustomer = await client.domain.update({
             where: {
-              id,
+              id: domain.id,
             },
             data: {
               customer: {
@@ -161,7 +253,7 @@ export const onAiChatBotAssistant = async (
             message,
             author
           )
-          
+
           onRealTimeChat(
             checkCustomer.customer[0].chatRoom[0].id,
             message,
@@ -210,12 +302,12 @@ export const onAiChatBotAssistant = async (
             {
               role: 'assistant',
               content: `
-              You will get an array of questions that you must ask the customer. 
-              
-              Progress the conversation using those questions. 
-              
-              Whenever you ask a question from the array i need you to add a keyword at the end of the question (complete) this keyword is extremely important. 
-              
+              You will get an array of questions that you must ask the customer.
+
+              Progress the conversation using those questions.
+
+              Whenever you ask a question from the array i need you to add a keyword at the end of the question (complete) this keyword is extremely important.
+
               Do not forget it.
 
               only add this keyword when your asking a question from the array of questions. No other question satisfies this condition

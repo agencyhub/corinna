@@ -51,9 +51,22 @@ export const onGetConversationMode = async (id: string) => {
 
 export const onGetDomainChatRooms = async (id: string) => {
   try {
+    // First try to find by UUID, then by name
+    let domain = await client.domain.findUnique({
+      where: { id },
+    })
+
+    if (!domain) {
+      domain = await client.domain.findFirst({
+        where: { name: id },
+      })
+    }
+
+    if (!domain) return null
+
     const domains = await client.domain.findUnique({
       where: {
-        id,
+        id: domain.id,
       },
       select: {
         customer: {
