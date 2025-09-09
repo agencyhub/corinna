@@ -39,7 +39,7 @@ const CodeSnippet = ({ id }: Props) => {
         // Use production URL instead of localhost
         const chatbotUrl = window.location.hostname === 'localhost'
             ? 'http://localhost:3000/chatbot'
-            : 'https://corinna-ai.vercel.app/chatbot';
+            : 'https://corinna-two.vercel.app/chatbot';
 
         iframe.src = chatbotUrl;
         iframe.classList.add('chat-frame');

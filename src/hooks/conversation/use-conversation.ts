@@ -1,15 +1,15 @@
 import {
-  onGetChatMessages,
-  onGetDomainChatRooms,
-  onOwnerSendMessage,
-  onRealTimeChat,
-  onViewUnReadMessages,
+    onGetChatMessages,
+    onGetDomainChatRooms,
+    onOwnerSendMessage,
+    onRealTimeChat,
+    onViewUnReadMessages,
 } from '@/actions/conversation'
 import { useChatContext } from '@/context/user-chat-context'
 import { getMonthName, getPusherClient } from '@/lib/utils'
 import {
-  ChatBotMessageSchema,
-  ConversationSearchSchema,
+    ChatBotMessageSchema,
+    ConversationSearchSchema,
 } from '@/schemas/conversation.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect, useRef, useState } from 'react'
@@ -138,7 +138,7 @@ export const useChatWindow = () => {
   useEffect(() => {
     if (chatRoom) {
       let pusherClient: any = null
-      
+
       const setupPusher = async () => {
         pusherClient = await getPusherClient()
         pusherClient.subscribe(chatRoom)
@@ -146,7 +146,7 @@ export const useChatWindow = () => {
           setChats((prev) => [...prev, data.chat])
         })
       }
-      
+
       setupPusher()
 
       return () => {

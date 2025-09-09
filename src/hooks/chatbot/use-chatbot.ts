@@ -1,5 +1,5 @@
 import { onAiChatBotAssistant, onGetCurrentChatBot } from '@/actions/bot'
-import { postToParent, getPusherClient } from '@/lib/utils'
+import { getPusherClient, postToParent } from '@/lib/utils'
 import {
     ChatBotMessageProps,
     ChatBotMessageSchema,
@@ -214,7 +214,7 @@ export const useRealTime = (
 
   useEffect(() => {
     let pusherClient: any = null
-    
+
     const setupPusher = async () => {
       pusherClient = await getPusherClient()
       pusherClient.subscribe(chatRoom)
@@ -232,9 +232,9 @@ export const useRealTime = (
         counterRef.current += 1
       })
     }
-    
+
     setupPusher()
-    
+
     return () => {
       if (pusherClient) {
         pusherClient.unbind('realtime-mode')
