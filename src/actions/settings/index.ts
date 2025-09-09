@@ -190,11 +190,49 @@ export const onGetCurrentDomainInfo = async (domain: string) => {
         },
       },
     })
-    if (userDomain) {
+
+    if (userDomain && userDomain.domains.length > 0) {
+      const domainData = userDomain.domains[0]
+
+      // If domain doesn't have a chatbot, create one
+      if (!domainData.chatBot) {
+        console.log('Creating chatbot for domain:', domainData.name)
+        const updatedDomain = await client.domain.update({
+          where: {
+            id: domainData.id,
+          },
+          data: {
+            chatBot: {
+              create: {
+                welcomeMessage: 'Hello! How can I help you today?',
+                helpdesk: false,
+              },
+            },
+          },
+          select: {
+            id: true,
+            name: true,
+            icon: true,
+            userId: true,
+            products: true,
+            chatBot: {
+              select: {
+                id: true,
+                welcomeMessage: true,
+                icon: true,
+              },
+            },
+          },
+        })
+
+        // Update the domain in the response
+        userDomain.domains[0] = updatedDomain
+      }
+
       return userDomain
     }
   } catch (error) {
-    console.log(error)
+    console.log('Error in onGetCurrentDomainInfo:', error)
   }
 }
 

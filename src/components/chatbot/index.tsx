@@ -1,10 +1,9 @@
 'use client'
 import { useChatBot } from '@/hooks/chatbot/use-chatbot'
-import React from 'react'
-import { BotWindow } from './window'
+import { BotIcon } from '@/icons/bot-icon'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
-import { BotIcon } from '@/icons/bot-icon'
+import { BotWindow } from './window'
 
 type Props = {}
 
@@ -24,6 +23,13 @@ const AiChatBot = (props: Props) => {
     errors,
   } = useChatBot()
 
+  console.log('AiChatBot render:', {
+    botOpened,
+    currentBot: currentBot?.name,
+    loading,
+    hasChatBot: !!currentBot?.chatBot
+  })
+
   return (
     <div className="h-screen flex flex-col justify-end items-end gap-4">
       {botOpened && (
@@ -31,8 +37,8 @@ const AiChatBot = (props: Props) => {
           errors={errors}
           setChat={setOnChats}
           realtimeMode={onRealTime}
-          helpdesk={currentBot?.helpdesk!}
-          domainName={currentBot?.name!}
+          helpdesk={currentBot?.helpdesk || []}
+          domainName={currentBot?.name || 'Domain'}
           ref={messageWindowRef}
           help={currentBot?.chatBot?.helpdesk}
           theme={currentBot?.chatBot?.background}

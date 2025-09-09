@@ -15,19 +15,35 @@ const openai = new OpenAi({
 const findDomainByIdOrName = async (id: string) => {
   console.log('findDomainByIdOrName: Searching for:', id)
 
-  // First try to find by UUID (if it's a valid UUID)
-  let domain = await client.domain.findUnique({
-    where: { id },
-  })
-  console.log('findDomainByIdOrName: UUID search result:', domain)
+  // Check if it looks like a UUID (contains hyphens and is 36 chars long)
+  const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)
 
-  // If not found by UUID, try to find by domain name
+  let domain = null
+
+  if (isUUID) {
+    // Try UUID search first if it looks like a UUID
+    console.log('findDomainByIdOrName: Trying UUID search for:', id)
+    try {
+      domain = await client.domain.findUnique({
+        where: { id },
+      })
+      console.log('findDomainByIdOrName: UUID search result:', domain)
+    } catch (error) {
+      console.log('findDomainByIdOrName: UUID search failed:', error)
+    }
+  }
+
+  // If not found by UUID or not a UUID, try to find by domain name
   if (!domain) {
     console.log('findDomainByIdOrName: Trying name search for:', id)
-    domain = await client.domain.findFirst({
-      where: { name: id },
-    })
-    console.log('findDomainByIdOrName: Name search result:', domain)
+    try {
+      domain = await client.domain.findFirst({
+        where: { name: id },
+      })
+      console.log('findDomainByIdOrName: Name search result:', domain)
+    } catch (error) {
+      console.log('findDomainByIdOrName: Name search failed:', error)
+    }
   }
 
   return domain
@@ -100,44 +116,6 @@ export const onGetCurrentChatBot = async (id: string) => {
       return chatbot
     } else {
       console.log('onGetCurrentChatBot: No domain found for:', id)
-
-      // If domain doesn't exist, create a default one for testing
-      if (id === 'fleekdash.com') {
-        console.log('onGetCurrentChatBot: Creating default domain for testing')
-        try {
-          const newDomain = await client.domain.create({
-            data: {
-              name: 'fleekdash.com',
-              icon: 'default-icon',
-              chatBot: {
-                create: {
-                  welcomeMessage: 'Hello! How can I help you today?',
-                  helpdesk: false,
-                },
-              },
-            },
-            select: {
-              helpdesk: true,
-              name: true,
-              chatBot: {
-                select: {
-                  id: true,
-                  welcomeMessage: true,
-                  icon: true,
-                  textColor: true,
-                  background: true,
-                  helpdesk: true,
-                },
-              },
-            },
-          })
-          console.log('onGetCurrentChatBot: Created default domain:', newDomain)
-          return newDomain
-        } catch (createError) {
-          console.log('Error creating default domain:', createError)
-        }
-      }
-
       return null
     }
   } catch (error) {

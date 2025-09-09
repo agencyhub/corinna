@@ -1,23 +1,21 @@
+import { BOT_TABS_MENU } from '@/constants/menu'
 import { ChatBotMessageProps } from '@/schemas/conversation.schema'
+import { Paperclip, Send } from 'lucide-react'
+import Image from 'next/image'
 import React, { forwardRef } from 'react'
 import { UseFormRegister } from 'react-hook-form'
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
-import RealTimeMode from './real-time'
-import Image from 'next/image'
-import TabsMenu from '../tabs/intex'
-import { BOT_TABS_MENU } from '@/constants/menu'
-import ChatIcon from '@/icons/chat-icon'
-import { TabsContent } from '../ui/tabs'
-import { Separator } from '../ui/separator'
-import Bubble from './bubble'
-import { Responding } from './responding'
-import { Input } from '../ui/input'
-import { Button } from '../ui/button'
-import { Paperclip, Send } from 'lucide-react'
-import { Label } from '../ui/label'
-import { CardDescription, CardTitle } from '../ui/card'
 import Accordion from '../accordian'
-import UploadButton from '../upload-button'
+import TabsMenu from '../tabs/intex'
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
+import { Button } from '../ui/button'
+import { CardDescription, CardTitle } from '../ui/card'
+import { Input } from '../ui/input'
+import { Label } from '../ui/label'
+import { Separator } from '../ui/separator'
+import { TabsContent } from '../ui/tabs'
+import Bubble from './bubble'
+import RealTimeMode from './real-time'
+import { Responding } from './responding'
 
 type Props = {
   errors: any
@@ -86,7 +84,7 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
               <h3 className="text-lg font-bold leading-none">
                 Sales Rep - Web Prodigies
               </h3>
-              <p className="text-sm">{domainName.split('.com')[0]}</p>
+              <p className="text-sm">{domainName ? domainName.split('.com')[0] : 'Domain'}</p>
               {realtimeMode?.mode && (
                 <RealTimeMode
                   setChats={setChat}
