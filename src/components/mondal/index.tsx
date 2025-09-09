@@ -1,14 +1,14 @@
-import React from 'react'
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
 } from '@/components/ui/dialog'
-import { ArrowBigLeftIcon, ArrowLeft, ArrowRight } from 'lucide-react'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
 import Image from 'next/image'
+import React from 'react'
 
 type Props = {
   trigger: React.ReactNode
@@ -34,11 +34,13 @@ const Modal = ({
           <DialogTrigger asChild>{trigger}</DialogTrigger>
           <DialogContent>
             <div className="flex justify-center gap-3">
-              <div className="w-12 h-12 relative">
+              <div className="h-12 relative">
                 <Image
-                  src={`https://ucarecdn.com/2c9bd4ab-1f00-41df-bad2-df668f65a232/`}
-                  fill
+                  src="/images/logo.png"
+                  height={48}
+                  width={0}
                   alt="Corinna"
+                  className="h-12 w-auto"
                 />
               </div>
               <div className="text-gray-400">
@@ -47,7 +49,7 @@ const Modal = ({
               </div>
               <div className="w-12 h-12 relative">
                 <Image
-                  src={`https://ucarecdn.com/${logo}/`}
+                  src={logo}
                   fill
                   alt="Stripe"
                 />

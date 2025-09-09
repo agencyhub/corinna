@@ -1,7 +1,7 @@
 'use client'
+import { UserButton } from '@clerk/nextjs';
 import { Headphones, Star, Trash } from 'lucide-react';
 import { usePathname } from 'next/navigation';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Card } from '../ui/card';
 import BreadCrumb from './bread-crumb';
 
@@ -32,23 +32,24 @@ const InfoBar = (props: Props) => {
         <div className="flex items-center gap-3">
           {/* Only show headphones avatar on conversation page */}
           {isConversationPage && (
-            <Avatar className="h-10 w-10 ring-2 ring-orange-200 dark:ring-orange-800">
-              <AvatarFallback className="bg-gradient-to-br from-orange-500 to-orange-600 text-white">
-                <Headphones className="h-5 w-5" />
-              </AvatarFallback>
-            </Avatar>
+            <div className="h-10 w-10 ring-2 ring-orange-200 dark:ring-orange-800 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center">
+              <Headphones className="h-5 w-5 text-white" />
+            </div>
           )}
 
-          <Avatar className="h-10 w-10 ring-2 ring-gray-200 dark:ring-gray-700">
-            <AvatarImage
-              src="https://github.com/shadcn.png"
-              alt="User Avatar"
-              className="object-cover"
-            />
-            <AvatarFallback className="bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-              CN
-            </AvatarFallback>
-          </Avatar>
+          {/* User Button with dropdown menu */}
+          <UserButton
+            afterSignOutUrl="/"
+            appearance={{
+              elements: {
+                avatarBox: "h-10 w-10 ring-2 ring-gray-200 dark:ring-gray-700",
+                userButtonPopoverCard: "shadow-lg border border-gray-200 dark:border-gray-700",
+                userButtonPopoverActionButton: "hover:bg-gray-100 dark:hover:bg-gray-800",
+                userButtonPopoverActionButtonText: "text-gray-700 dark:text-gray-300",
+                userButtonPopoverFooter: "hidden" // Hide the footer with "Manage account" link
+              }
+            }}
+          />
         </div>
       </div>
     </div>

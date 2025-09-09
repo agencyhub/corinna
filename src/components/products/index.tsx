@@ -69,7 +69,7 @@ const ProductTable = ({ id, products }: Props) => {
                   <TableCell>
                     <div className="relative w-12 h-12 rounded-lg overflow-hidden">
                       <Image
-                        src={`https://ucarecdn.com/${product.image}/`}
+                        src={`https://ucarecdn.com/${product.image}/-/format/auto/`}
                         width={50}
                         height={50}
                         alt="Product image"

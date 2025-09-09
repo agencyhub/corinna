@@ -1,29 +1,29 @@
 import {
-  onChatBotImageUpdate,
-  onCreateFilterQuestions,
-  onCreateHelpDeskQuestion,
-  onCreateNewDomainProduct,
-  onDeleteUserDomain,
-  onGetAllFilterQuestions,
-  onGetAllHelpDeskQuestions,
-  onUpdateDomain,
-  onUpdatePassword,
-  onUpdateWelcomeMessage,
+    onChatBotImageUpdate,
+    onCreateFilterQuestions,
+    onCreateHelpDeskQuestion,
+    onCreateNewDomainProduct,
+    onDeleteUserDomain,
+    onGetAllFilterQuestions,
+    onGetAllHelpDeskQuestions,
+    onUpdateDomain,
+    onUpdatePassword,
+    onUpdateWelcomeMessage,
 } from '@/actions/settings'
 import { useToast } from '@/components/ui/use-toast'
 import {
-  ChangePasswordProps,
-  ChangePasswordSchema,
+    ChangePasswordProps,
+    ChangePasswordSchema,
 } from '@/schemas/auth.schema'
 import {
-  AddProductProps,
-  AddProductSchema,
-  DomainSettingsProps,
-  DomainSettingsSchema,
-  FilterQuestionsProps,
-  FilterQuestionsSchema,
-  HelpDeskQuestionsProps,
-  HelpDeskQuestionsSchema,
+    AddProductProps,
+    AddProductSchema,
+    DomainSettingsProps,
+    DomainSettingsSchema,
+    FilterQuestionsProps,
+    FilterQuestionsSchema,
+    HelpDeskQuestionsProps,
+    HelpDeskQuestionsSchema,
 } from '@/schemas/settings.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { UploadClient } from '@uploadcare/upload-client'
@@ -194,7 +194,7 @@ export const useHelpDesk = (id: string) => {
 
   useEffect(() => {
     onGetQuestions()
-  }, [])
+  }, [onGetQuestions])
 
   return {
     register,
@@ -245,7 +245,7 @@ export const useFilterQuestions = (id: string) => {
 
   useEffect(() => {
     onGetQuestions()
-  }, [])
+  }, [onGetQuestions])
 
   return {
     loading,

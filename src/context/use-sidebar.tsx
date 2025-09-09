@@ -47,7 +47,7 @@ const useSideBar = () => {
     if (chatRoom) {
       onGetCurrentMode()
     }
-  }, [chatRoom])
+  }, [chatRoom, onGetCurrentMode])
 
   const page = pathname.split('/').pop()
   const { signOut } = useClerk()

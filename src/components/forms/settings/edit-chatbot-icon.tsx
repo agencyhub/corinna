@@ -3,7 +3,6 @@ import UploadButton from '@/components/upload-button'
 import { BotIcon } from '@/icons/bot-icon'
 
 import Image from 'next/image'
-import React from 'react'
 import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form'
 
 type Props = {
@@ -31,7 +30,7 @@ const EditChatbotIcon = ({ register, errors, chatBot }: Props) => {
       {chatBot?.icon ? (
         <div className="rounded-full overflow-hidden">
           <Image
-            src={`https://ucarecdn.com/${chatBot.icon}/`}
+            src={`https://ucarecdn.com/${chatBot.icon}/-/format/auto/`}
             alt="bot"
             width={80}
             height={80}

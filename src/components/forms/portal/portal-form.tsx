@@ -1,7 +1,7 @@
 'use client'
 import { usePortal } from '@/hooks/portal/use-portal'
 import { cn } from '@/lib/utils'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import PortalSteps from './portal-steps'
 
 type PortalFormProps = {
@@ -60,7 +60,7 @@ const PortalForm = ({
     if (questions.every((question) => question.answered)) {
       onNext()
     }
-  }, [])
+  }, [questions, onNext])
 
   return (
     <form

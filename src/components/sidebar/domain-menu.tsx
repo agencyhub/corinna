@@ -1,13 +1,13 @@
-import { useDomain } from '@/hooks/sidebar/use-domain'
-import { cn } from '@/lib/utils'
-import { Plus } from 'lucide-react'
-import Image from 'next/image'
-import Link from 'next/link'
-import AppDrawer from '../drawer'
-import FormGenerator from '../forms/form-generator'
-import { Loader } from '../loader'
-import { Button } from '../ui/button'
-import UploadButton from '../upload-button'
+import { useDomain } from '@/hooks/sidebar/use-domain';
+import { cn } from '@/lib/utils';
+import { Plus } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import AppDrawer from '../drawer';
+import FormGenerator from '../forms/form-generator';
+import { Loader } from '../loader';
+import { Button } from '../ui/button';
+import UploadButton from '../upload-button';
 
 type Props = {
   min?: boolean
@@ -79,7 +79,7 @@ const DomainMenu = ({ domains, min }: Props) => {
               )}
             >
               <Image
-                src={`https://ucarecdn.com/${domain.icon}/`}
+                src={`https://ucarecdn.com/${domain.icon}/-/format/auto/`}
                 alt="logo"
                 width={20}
                 height={20}

@@ -1,15 +1,15 @@
 import {
-  onAddCustomersToEmail,
-  onBulkMailer,
-  onCreateMarketingCampaign,
-  onGetAllCustomerResponses,
-  onGetEmailTemplate,
-  onSaveEmailTemplate,
+    onAddCustomersToEmail,
+    onBulkMailer,
+    onCreateMarketingCampaign,
+    onGetAllCustomerResponses,
+    onGetEmailTemplate,
+    onSaveEmailTemplate,
 } from '@/actions/mail'
 import { useToast } from '@/components/ui/use-toast'
 import {
-  EmailMarketingBodySchema,
-  EmailMarketingSchema,
+    EmailMarketingBodySchema,
+    EmailMarketingSchema,
 } from '@/schemas/marketing.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
@@ -173,7 +173,7 @@ export const useAnswers = (id: string) => {
 
   useEffect(() => {
     onGetCustomerAnswers()
-  }, [])
+  }, [onGetCustomerAnswers])
 
   return { answers, loading }
 }
@@ -197,7 +197,7 @@ export const useEditEmail = (id: string) => {
 
   useEffect(() => {
     onGetTemplate(id)
-  }, [])
+  }, [id, onGetTemplate])
 
   return { loading, template }
 }

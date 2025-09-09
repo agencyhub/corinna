@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react'
 import {
-  onCreateCustomerPaymentIntentSecret,
-  onGetStripeClientSecret,
-  onUpdateSubscription,
+    onCreateCustomerPaymentIntentSecret,
+    onGetStripeClientSecret,
+    onUpdateSubscription,
 } from '@/actions/stripe'
 import { useToast } from '@/components/ui/use-toast'
-import axios from 'axios'
 import {
-  useElements,
-  useStripe as useStripeHook,
+    useElements,
+    useStripe as useStripeHook,
 } from '@stripe/react-stripe-js'
+import axios from 'axios'
 import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 export const useStripe = () => {
   const [onStripeAccountPending, setOnStripeAccountPending] =
@@ -19,7 +19,7 @@ export const useStripe = () => {
   const onStripeConnect = async () => {
     try {
       setOnStripeAccountPending(true)
-      const account = await axios.get(`/api/stripe/connect`)
+      const account = await axios.get(`${window.location.origin}/api/stripe/connect`)
       if (account) {
         setOnStripeAccountPending(false)
         if (account) {
@@ -52,7 +52,7 @@ export const useStripeCustomer = (amount: number, stripeId: string) => {
 
   useEffect(() => {
     onGetCustomerIntent(amount)
-  }, [])
+  }, [amount, onGetCustomerIntent])
 
   return { stripeSecret, loadForm }
 }

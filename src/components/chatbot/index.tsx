@@ -58,7 +58,7 @@ const AiChatBot = (props: Props) => {
       >
         {currentBot?.chatBot?.icon ? (
           <Image
-            src={`https://ucarecdn.com/${currentBot.chatBot.icon}/`}
+            src={`https://ucarecdn.com/${currentBot.chatBot.icon}/-/format/auto/`}
             alt="bot"
             fill
           />

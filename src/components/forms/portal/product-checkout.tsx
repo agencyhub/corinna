@@ -1,10 +1,9 @@
 'use client'
-import React from 'react'
-import { loadStripe } from '@stripe/stripe-js'
-import { useStripeCustomer } from '@/hooks/billing/use-billing'
 import { Loader } from '@/components/loader'
 import { Card } from '@/components/ui/card'
+import { useStripeCustomer } from '@/hooks/billing/use-billing'
 import { Elements } from '@stripe/react-stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
 import Image from 'next/image'
 import { CustomerPaymentForm } from './payment-form'
 
@@ -54,7 +53,7 @@ const PaymentCheckout = ({
                 >
                   <div className="w-2/12 aspect-square relative">
                     <Image
-                      src={`https://ucarecdn.com/${product.image}/`}
+                      src={`https://ucarecdn.com/${product.image}/-/format/auto/`}
                       alt="product"
                       fill
                     />

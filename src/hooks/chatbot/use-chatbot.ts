@@ -135,7 +135,7 @@ export const useChatBot = () => {
     return () => {
       window.removeEventListener('message', handleMessage)
     }
-  }, [currentBotId])
+  }, [currentBotId, limitRequest, onGetDomainChatBot])
 
   // Support loading chatbot directly via URL query param: /chatbot?id=DOMAIN_ID
   useEffect(() => {
@@ -150,7 +150,7 @@ export const useChatBot = () => {
     } catch (err) {
       console.error('Failed to parse chatbot id from URL', err)
     }
-  }, [currentBotId])
+  }, [currentBotId, onGetDomainChatBot])
 
   const onStartChatting = handleSubmit(async (values) => {
     console.log('ALL VALUES', values)
@@ -293,5 +293,5 @@ export const useRealTime = (
         pusherClient.unsubscribe(chatRoom)
       }
     }
-  }, [])
+  }, [chatRoom, setChats])
 }
