@@ -464,7 +464,7 @@ export const onAiChatBotAssistant = async (
           content: chatCompletion.choices[0].message.content,
         }
 
-        if (anonChatRoomId) {
+        if (anonChatRoomId && response.content) {
           await onStoreConversations(anonChatRoomId, response.content, 'assistant')
         }
 
