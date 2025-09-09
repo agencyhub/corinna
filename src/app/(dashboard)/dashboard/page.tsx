@@ -27,10 +27,12 @@ const Page = async (props: Props) => {
     const products = await getUserTotalProductPrices()
 
     return (
-      <>
+      <div className="flex flex-col h-full">
         <InfoBar />
-        <div className="overflow-y-auto w-full chat-window flex-1 h-0">
-          <div className="flex gap-5 flex-wrap">
+
+        <div className="flex-1 overflow-y-auto p-6 lg:p-8 space-y-8">
+          {/* Dashboard Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
             <DashboardCard
               value={clients || 0}
               title="Potential Clients"
@@ -39,7 +41,7 @@ const Page = async (props: Props) => {
             <DashboardCard
               value={products! * clients! || 0}
               sales
-              title="Pipline Value"
+              title="Pipeline Value"
               icon={<DollarSign />}
             />
             <DashboardCard
@@ -54,11 +56,16 @@ const Page = async (props: Props) => {
               icon={<DollarSign />}
             />
           </div>
-          <div className="w-full grid grid-cols-1 lg:grid-cols-2 py-10">
-            <div>
-              <div>
-                <h2 className="font-bold text-2xl">Plan Usage</h2>
-                <p className="text-sm font-light">
+
+          {/* Main Content Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Plan Usage Section */}
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 lg:p-8 border border-gray-200 dark:border-gray-700 shadow-soft">
+              <div className="mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                  Plan Usage
+                </h2>
+                <p className="text-gray-600 dark:text-gray-400">
                   A detailed overview of your metrics, usage, customers and more
                 </p>
               </div>
@@ -69,33 +76,51 @@ const Page = async (props: Props) => {
                 clients={clients || 0}
               />
             </div>
-            <div className="flex flex-col">
-              <div className="w-full flex justify-between items-start mb-5">
-                <div className="flex gap-3 items-center">
-                  <TransactionsIcon />
-                  <p className="font-bold">Recent Transactions</p>
+
+            {/* Recent Transactions Section */}
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 lg:p-8 border border-gray-200 dark:border-gray-700 shadow-soft">
+              <div className="flex justify-between items-center mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-orange-100 dark:bg-orange-900/20 rounded-lg text-orange-600 dark:text-orange-400">
+                    <TransactionsIcon />
+                  </div>
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                    Recent Transactions
+                  </h2>
                 </div>
-                <p className="text-sm">See more</p>
+                <button className="text-sm text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 font-medium transition-colors">
+                  See more
+                </button>
               </div>
-              <Separator orientation="horizontal" />
-              {transactions &&
-                transactions.data.map((transaction) => (
-                  <div
-                    className="flex gap-3 w-full justify-between items-center border-b-2 py-5"
-                    key={transaction.id}
-                  >
-                    <p className="font-bold">
-                      {transaction.calculated_statement_descriptor}
-                    </p>
-                    <p className="font-bold text-xl">
-                      ${transaction.amount / 100}
+
+              <div className="space-y-4">
+                <Separator className="bg-gray-200 dark:bg-gray-700" />
+                {transactions && transactions.data.length > 0 ? (
+                  transactions.data.map((transaction) => (
+                    <div
+                      className="flex justify-between items-center py-4 border-b border-gray-100 dark:border-gray-700 last:border-b-0"
+                      key={transaction.id}
+                    >
+                      <p className="font-semibold text-gray-800 dark:text-gray-200">
+                        {transaction.calculated_statement_descriptor}
+                      </p>
+                      <p className="font-bold text-lg text-green-600 dark:text-green-400">
+                        ${(transaction.amount / 100).toFixed(2)}
+                      </p>
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-center py-8">
+                    <p className="text-gray-500 dark:text-gray-400">
+                      No recent transactions
                     </p>
                   </div>
-                ))}
+                )}
+              </div>
             </div>
           </div>
         </div>
-      </>
+      </div>
     )
   } catch (error) {
     console.error('Error in dashboard:', error)

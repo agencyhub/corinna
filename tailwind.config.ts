@@ -12,22 +12,47 @@ const config = {
   theme: {
     container: {
       center: true,
-      padding: '2rem',
+      padding: {
+        DEFAULT: '1rem',
+        sm: '1.5rem',
+        lg: '2rem',
+        xl: '2.5rem',
+        '2xl': '3rem',
+      },
       screens: {
         '2xl': '1400px',
       },
     },
     extend: {
+      spacing: {
+        '18': '4.5rem',
+        '22': '5.5rem',
+        '88': '22rem',
+        '112': '28rem',
+        '128': '32rem',
+      },
       colors: {
-        cream: '#F5F5F5',
+        cream: '#F8F9FA',
         gravel: '#4E4E4E',
         iridium: '#3F3F3F',
-        orange: '#FFA947',
+        orange: {
+          DEFAULT: '#FFA947',
+          50: '#FFF8F1',
+          100: '#FFECDC',
+          200: '#FFD6B3',
+          300: '#FFBC85',
+          400: '#FFA247',
+          500: '#FFA947',
+          600: '#E6923A',
+          700: '#CC7A2C',
+          800: '#B3621F',
+          900: '#994A11',
+        },
         peach: '#FFE0BD',
         platinum: '#E6E6E6',
         ghost: '#CDCDCD',
         grandis: '#FFC989',
-        porcelain: '#F1F1F1',
+        porcelain: '#F8F9FA',
         ironside: '#636363',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -67,6 +92,18 @@ const config = {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+        '2xl': '1rem',
+        '3xl': '1.5rem',
+      },
+      boxShadow: {
+        'soft': '0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.08)',
+        'medium': '0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.05)',
+        'large': '0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08)',
+        'glow': '0 0 20px rgba(255, 169, 71, 0.3)',
+        'glow-soft': '0 0 10px rgba(255, 169, 71, 0.2)',
+      },
+      backdropBlur: {
+        'xs': '2px',
       },
       keyframes: {
         'accordion-down': {

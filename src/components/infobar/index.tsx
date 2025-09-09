@@ -1,34 +1,44 @@
-import React from 'react'
-import BreadCrumb from './bread-crumb'
-import { Card } from '../ui/card'
 import { Headphones, Star, Trash } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
+import { Card } from '../ui/card'
+import BreadCrumb from './bread-crumb'
 
 type Props = {}
 
 const InfoBar = (props: Props) => {
   return (
-    <div className="flex w-full justify-between items-center py-1 mb-8 ">
+    <div className="flex w-full justify-between items-center p-6 lg:p-8 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
       <BreadCrumb />
-      <div className="flex gap-3 items-center">
-        <div>
-          <Card className="rounded-xl flex gap-3 py-3 px-4 text-ghost">
-            <Trash />
-            <Star></Star>
+      <div className="flex items-center gap-4">
+        <div className="hidden md:flex">
+          <Card className="rounded-xl flex items-center gap-3 py-2 px-4 bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600 shadow-soft">
+            <button className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 rounded transition-colors">
+              <Trash className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+            </button>
+            <button className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 rounded transition-colors">
+              <Star className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+            </button>
           </Card>
         </div>
-        <Avatar>
-          <AvatarFallback className="bg-orange text-white">
-            <Headphones />
-          </AvatarFallback>
-        </Avatar>
-        <Avatar>
-          <AvatarImage
-            src="https://github.com/shadcn.png"
-            alt="@shadcn"
-          />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
+
+        <div className="flex items-center gap-3">
+          <Avatar className="h-10 w-10 ring-2 ring-orange-200 dark:ring-orange-800">
+            <AvatarFallback className="bg-gradient-to-br from-orange-500 to-orange-600 text-white">
+              <Headphones className="h-5 w-5" />
+            </AvatarFallback>
+          </Avatar>
+
+          <Avatar className="h-10 w-10 ring-2 ring-gray-200 dark:ring-gray-700">
+            <AvatarImage
+              src="https://github.com/shadcn.png"
+              alt="User Avatar"
+              className="object-cover"
+            />
+            <AvatarFallback className="bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+              CN
+            </AvatarFallback>
+          </Avatar>
+        </div>
       </div>
     </div>
   )

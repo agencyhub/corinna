@@ -1,7 +1,6 @@
 import { SIDE_BAR_MENU } from '@/constants/menu'
 import { LogOut, Menu, MonitorSmartphone } from 'lucide-react'
 import Image from 'next/image'
-import React from 'react'
 import DomainMenu from './domain-menu'
 import MenuItem from './menu-item'
 
@@ -21,51 +20,63 @@ type Props = {
 
 const MaxMenu = ({ current, domains, onExpand, onSignOut }: Props) => {
   return (
-    <div className="py-3 px-4 flex flex-col h-full">
-      <div className="flex justify-between items-center">
+    <div className="flex flex-col h-full">
+      {/* Header */}
+      <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800">
         <Image
           src="/images/logo.png"
-          alt="LOGO"
-          sizes="100vw"
-          className="animate-fade-in opacity-0 delay-300 fill-mode-forwards"
-          style={{
-            width: '50%',
-            height: 'auto',
-          }}
-          width={0}
-          height={0}
+          alt="Corinna AI Logo"
+          width={120}
+          height={40}
+          className="h-8 w-auto animate-fade-in opacity-0 delay-300 fill-mode-forwards"
         />
-        <Menu
-          className="cursor-pointer animate-fade-in opacity-0 delay-300 fill-mode-forwards"
+        <button
           onClick={onExpand}
-        />
+          className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+        >
+          <Menu className="h-5 w-5 text-gray-600 dark:text-gray-400" />
+        </button>
       </div>
-      <div className="animate-fade-in opacity-0 delay-300 fill-mode-forwards flex flex-col justify-between h-full pt-10">
-        <div className="flex flex-col">
-          <p className="text-xs text-gray-500 mb-3">MENU</p>
-          {SIDE_BAR_MENU.map((menu, key) => (
-            <MenuItem
-              size="max"
-              {...menu}
-              key={key}
-              current={current}
-            />
-          ))}
+
+      {/* Navigation */}
+      <div className="flex-1 flex flex-col justify-between py-6">
+        <div className="px-6">
+          <div className="mb-8">
+            <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">
+              Menu
+            </p>
+            <nav className="space-y-2">
+              {SIDE_BAR_MENU.map((menu, key) => (
+                <MenuItem
+                  size="max"
+                  {...menu}
+                  key={key}
+                  current={current}
+                />
+              ))}
+            </nav>
+          </div>
           <DomainMenu domains={domains} />
         </div>
-        <div className="flex flex-col">
-          <p className="text-xs text-gray-500 mb-3">OPTIONS</p>
-          <MenuItem
-            size="max"
-            label="Sign out"
-            icon={<LogOut />}
-            onSignOut={onSignOut}
-          />
-          <MenuItem
-            size="max"
-            label="Mobile App"
-            icon={<MonitorSmartphone />}
-          />
+
+        {/* Bottom Options */}
+        <div className="px-6 border-t border-gray-200 dark:border-gray-800 pt-6">
+          <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">
+            Options
+          </p>
+          <div className="space-y-2">
+            <MenuItem
+              size="max"
+              label="Mobile App"
+              icon={<MonitorSmartphone />}
+            />
+            <MenuItem
+              size="max"
+              label="Sign out"
+              icon={<LogOut />}
+              onSignOut={onSignOut}
+            />
+          </div>
         </div>
       </div>
     </div>

@@ -1,7 +1,6 @@
 'use client'
 import useSideBar from '@/context/use-sidebar'
 import { cn } from '@/lib/utils'
-import React from 'react'
 import MaxMenu from './maximized-menu'
 import { MinMenu } from './minimized-menu'
 
@@ -22,14 +21,16 @@ const SideBar = ({ domains }: Props) => {
   return (
     <div
       className={cn(
-        'bg-cream dark:bg-neutral-950 h-full w-[60px] fill-mode-forwards fixed md:relative',
-        expand == undefined && '',
+        'bg-white dark:bg-gray-900 h-full border-r border-gray-200 dark:border-gray-800 shadow-medium fixed left-0 top-0 z-40 transition-all duration-300',
+        expand == undefined && 'w-[60px] md:w-[280px]',
         expand == true
-          ? 'animate-open-sidebar'
-          : expand == false && 'animate-close-sidebar'
+          ? 'w-[280px] animate-open-sidebar'
+          : expand == false
+          ? 'w-[60px] animate-close-sidebar'
+          : 'w-[60px] md:w-[280px]'
       )}
     >
-      {expand ? (
+      {expand !== false ? (
         <MaxMenu
           domains={domains}
           current={page!}
