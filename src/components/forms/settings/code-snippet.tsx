@@ -10,7 +10,7 @@ type Props = {
 const CodeSnippet = ({ id }: Props) => {
   const { toast } = useToast()
   let snippet = `<script
-    src="https://corinna-two.vercel.app/embed.js"
+    src="https://corinna-two.vercel.app/api/embed"
     data-corinna-id="${id}"
     defer
   ><\/script>`
