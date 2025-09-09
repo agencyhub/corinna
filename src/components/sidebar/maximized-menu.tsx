@@ -1,6 +1,7 @@
 import { SIDE_BAR_MENU } from '@/constants/menu';
 import { LogOut, Menu, MonitorSmartphone } from 'lucide-react';
 import Image from 'next/image';
+import { usePathname, useRouter } from 'next/navigation';
 import DomainMenu from './domain-menu';
 import MenuItem from './menu-item';
 
@@ -19,17 +20,32 @@ type Props = {
 }
 
 const MaxMenu = ({ current, domains, onExpand, onSignOut }: Props) => {
+  const router = useRouter()
+  const pathname = usePathname()
+
+  // Extract locale from pathname
+  const locale = pathname.split('/')[1] || 'en'
+
+  const handleLogoClick = () => {
+    router.push(`/${locale}/dashboard`)
+  }
+
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
       <div className="flex items-center justify-between p-[18px] border-b border-gray-200 dark:border-gray-800">
-        <Image
-          src="/images/logo.png"
-          alt="Corinna AI Logo"
-          width={120}
-          height={40}
-          className="h-8 w-auto animate-fade-in opacity-0 delay-300 fill-mode-forwards"
-        />
+        <button
+          onClick={handleLogoClick}
+          className="cursor-pointer hover:opacity-80 transition-opacity"
+        >
+          <Image
+            src="/images/logo.png"
+            alt="Corinna AI Logo"
+            width={120}
+            height={40}
+            className="h-8 w-auto animate-fade-in opacity-0 delay-300 fill-mode-forwards"
+          />
+        </button>
         <button
           onClick={onExpand}
           className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"

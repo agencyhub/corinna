@@ -1,5 +1,7 @@
 import { SIDE_BAR_MENU } from '@/constants/menu'
 import { LogOut, Menu, MonitorSmartphone } from 'lucide-react'
+import Image from 'next/image'
+import { usePathname, useRouter } from 'next/navigation'
 import DomainMenu from './domain-menu'
 import MenuItem from './menu-item'
 
@@ -23,10 +25,33 @@ export const MinMenu = ({
   onSignOut,
   domains,
 }: MinMenuProps) => {
+  const router = useRouter()
+  const pathname = usePathname()
+
+  // Extract locale from pathname
+  const locale = pathname.split('/')[1] || 'en'
+
+  const handleLogoClick = () => {
+    router.push(`/${locale}/dashboard`)
+  }
+
   return (
     <div className="p-3 flex flex-col items-center h-full">
-      {/* Header with expand button */}
-      <div className="flex items-center justify-center w-full mb-4">
+      {/* Header with logo and expand button */}
+      <div className="flex flex-col items-center w-full mb-4 space-y-3">
+        <button
+          onClick={handleLogoClick}
+          className="cursor-pointer hover:opacity-80 transition-opacity"
+          title="Go to Dashboard"
+        >
+          <Image
+            src="/images/logo.png"
+            alt="Corinna AI Logo"
+            width={40}
+            height={40}
+            className="h-8 w-8 object-contain animate-fade-in opacity-0 delay-300 fill-mode-forwards"
+          />
+        </button>
         <button
           onClick={onShrink}
           className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"

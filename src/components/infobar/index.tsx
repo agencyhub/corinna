@@ -3,6 +3,7 @@ import { useChatContext } from '@/context/user-chat-context';
 import { UserButton } from '@clerk/nextjs';
 import { Headphones, Star, Trash } from 'lucide-react';
 import { usePathname } from 'next/navigation';
+import ThemeToggle from '../theme-toggle';
 import { Card } from '../ui/card';
 import BreadCrumb from './bread-crumb';
 
@@ -39,6 +40,9 @@ const InfoBar = (props: Props) => {
               <Headphones className="h-5 w-5 text-white" />
             </div>
           )}
+
+          {/* Theme Toggle Button */}
+          <ThemeToggle />
 
           {/* User Button with dropdown menu */}
           <UserButton
