@@ -10,10 +10,10 @@ export const onGetBlogPosts = async () => {
       content: string
       createdAt: Date
     }[] = []
-    
+
     const postsUrl = process.env.CLOUDWAYS_POSTS_URL
     const featuredImages = process.env.CLOUDWAYS_FEATURED_IMAGES_URL
-    
+
     // Return empty array if URLs are not configured
     if (!postsUrl || !featuredImages) {
       console.log('Blog URLs not configured, returning empty array')
@@ -21,7 +21,7 @@ export const onGetBlogPosts = async () => {
     }
 
     const posts = await axios.get(postsUrl)
-    
+
     if (!posts.data || !Array.isArray(posts.data)) {
       console.log('No posts data available')
       return []
