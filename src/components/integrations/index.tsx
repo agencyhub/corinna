@@ -1,5 +1,6 @@
 'use client'
 import { INTEGRATION_LIST_ITEMS } from '@/constants/integrations'
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { Card, CardContent, CardDescription } from '../ui/card'
 import IntegrationTrigger from './IntegrationTrigger'
@@ -11,6 +12,7 @@ type Props = {
 }
 
 const IntegrationsList = ({ connections }: Props) => {
+  const t = useTranslations('integrations')
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {INTEGRATION_LIST_ITEMS.map((item) => (
@@ -44,7 +46,7 @@ const IntegrationsList = ({ connections }: Props) => {
                           ? 'text-green-600 dark:text-green-400'
                           : 'text-gray-500 dark:text-gray-400'
                       }`}>
-                        {connections[item.name] ? 'Connected' : 'Not connected'}
+                        {connections[item.name] ? t('connected', { default: 'Connected' }) : t('notConnected', { default: 'Not connected' })}
                       </span>
                     </div>
                   </div>
@@ -54,7 +56,7 @@ const IntegrationsList = ({ connections }: Props) => {
               {/* Description */}
               <div className="flex-1 mb-6">
                 <CardDescription className="text-sm leading-relaxed">
-                  {item.description}
+                  {t(item.description, { default: item.description })}
                 </CardDescription>
               </div>
 
@@ -62,8 +64,8 @@ const IntegrationsList = ({ connections }: Props) => {
               <div className="mt-auto">
                 <IntegrationTrigger
                   connections={connections}
-                  title={item.title}
-                  descrioption={item.modalDescription}
+                  title={t(item.title, { default: item.title })}
+                  descrioption={t(item.modalDescription, { default: item.modalDescription })}
                   logo={item.logo}
                   name={item.name}
                 />

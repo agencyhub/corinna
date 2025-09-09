@@ -1,16 +1,16 @@
 'use client'
 import { useEmailMarketing } from '@/hooks/email-marketing/use-marketing'
-import React from 'react'
-import { CustomerTable } from './customer-table'
-import { Button } from '../ui/button'
-import { Plus } from 'lucide-react'
-import Modal from '../mondal'
-import { Card, CardContent, CardDescription, CardTitle } from '../ui/card'
-import { Loader } from '../loader'
-import FormGenerator from '../forms/form-generator'
-import { cn, getMonthName } from '@/lib/utils'
 import CalIcon from '@/icons/cal-icon'
 import PersonIcon from '@/icons/person-icon'
+import { cn, getMonthName } from '@/lib/utils'
+import { Plus } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+import FormGenerator from '../forms/form-generator'
+import { Loader } from '../loader'
+import Modal from '../mondal'
+import { Button } from '../ui/button'
+import { Card, CardContent, CardDescription, CardTitle } from '../ui/card'
+import { CustomerTable } from './customer-table'
 import { EditEmail } from './edit-email'
 
 type Props = {
@@ -36,6 +36,7 @@ type Props = {
 }
 
 const EmailMarketing = ({ campaign, domains, subscription }: Props) => {
+  const t = useTranslations('emailMarketing')
   const {
     onSelectedEmails,
     isSelected,
@@ -71,15 +72,15 @@ const EmailMarketing = ({ campaign, domains, subscription }: Props) => {
             disabled={isSelected.length == 0}
             onClick={onAddCustomersToCampaign}
           >
-            <Plus /> Add to campaign
+            <Plus /> {t('addToCampaign', { default: 'Add to campaign' })}
           </Button>
           <Modal
-            title="Create a new campaign"
-            description="Add your customers and create a marketing campaign"
+            title={t('createNewCampaign', { default: 'Create a new campaign' })}
+            description={t('createNewCampaignDescription', { default: 'Add your customers and create a marketing campaign' })}
             trigger={
               <Card className="flex gap-2 items-center px-3 cursor-pointer text-sm">
                 <Loader loading={false}>
-                  <Plus /> Create Campaign
+                  <Plus /> {t('createCampaign', { default: 'Create Campaign' })}
                 </Loader>
               </Card>
             }
@@ -93,7 +94,7 @@ const EmailMarketing = ({ campaign, domains, subscription }: Props) => {
                 register={register}
                 errors={errors}
                 inputType="input"
-                placeholder="your campaign name"
+                placeholder={t('campaignNamePlaceholder', { default: 'your campaign name' })}
                 type="text"
               />
               <Button
@@ -101,13 +102,13 @@ const EmailMarketing = ({ campaign, domains, subscription }: Props) => {
                 disabled={loading}
                 type="submit"
               >
-                <Loader loading={loading}>Create Campaign</Loader>
+                <Loader loading={loading}>{t('createCampaign', { default: 'Create Campaign' })}</Loader>
               </Button>
             </form>
           </Modal>
           <Card className="p-2">
             <CardDescription className="font-bold">
-              {subscription?.credits} credits
+              {subscription?.credits} {t('credits', { default: 'credits' })}
             </CardDescription>
           </Card>
         </div>
@@ -128,14 +129,14 @@ const EmailMarketing = ({ campaign, domains, subscription }: Props) => {
                       <div className="flex gap-2 items-center">
                         <CalIcon />
                         <CardDescription>
-                          Created {getMonthName(camp.createdAt.getMonth())}{' '}
+                          {t('created', { default: 'Created' })} {getMonthName(camp.createdAt.getMonth())}{' '}
                           {camp.createdAt.getDate()}th
                         </CardDescription>
                       </div>
                       <div className="flex gap-2">
                         <PersonIcon />
                         <CardDescription>
-                          {camp.customers.length} customers added
+                          {camp.customers.length} {t('customersAdded', { default: 'customers added' })}
                         </CardDescription>
                       </div>
                     </div>
@@ -143,11 +144,11 @@ const EmailMarketing = ({ campaign, domains, subscription }: Props) => {
                       <CardTitle className="text-xl">{camp.name}</CardTitle>
                       <div className="flex gap-3">
                         <Modal
-                          title="Edit Email"
-                          description="This email will be sent to campaign members"
+                          title={t('editEmail', { default: 'Edit Email' })}
+                          description={t('editEmailDescription', { default: 'This email will be sent to campaign members' })}
                           trigger={
                             <Card className="rounded-lg cursor-pointer bg-grandis py-2 px-5 font-semibold text-sm hover:bg-orange text-gray-700">
-                              Edit Email
+                              {t('editEmail', { default: 'Edit Email' })}
                             </Card>
                           }
                         >
@@ -169,7 +170,7 @@ const EmailMarketing = ({ campaign, domains, subscription }: Props) => {
                             )
                           }
                         >
-                          Send
+                          {t('send', { default: 'Send' })}
                         </Button>
                       </div>
                     </div>

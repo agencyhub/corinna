@@ -85,7 +85,15 @@
     "startConversation": "Start conversation",
     "lastMessage": "Last message",
     "unread": "Unread",
-    "archived": "Archived"
+    "archived": "Archived",
+    "noConversationsYet": "No conversations yet",
+    "startChattingDescription": "Start chatting with your customers to see conversations here.",
+    "allConversations": "All Conversations",
+    "allConversationsDescription": "All conversations will appear here",
+    "expiredConversations": "Expired Conversations",
+    "expiredConversationsDescription": "Expired conversations will appear here",
+    "starredConversations": "Starred Conversations",
+    "starredConversationsDescription": "Starred conversations will appear here"
   },
   "appointments": {
     "title": "Appointments",
@@ -104,7 +112,14 @@
     "bookingsTodayDescription": "All your bookings for today are mentioned below.",
     "created": "Created",
     "domain": "Domain",
-    "noAppointmentsToday": "No Appointments For Today"
+    "noAppointmentsToday": "No Appointments For Today",
+    "allAppointments": "All Appointments",
+    "allAppointmentsDescription": "View and manage all your appointments",
+    "noAppointmentsFound": "No Appointments Found",
+    "name": "Name",
+    "requestedTime": "Requested Time",
+    "addedTime": "Added Time",
+    "loading": "Loading appointments..."
   },
   "emailMarketing": {
     "title": "Email Marketing",
@@ -116,7 +131,24 @@
     "sendEmail": "Send Email",
     "subject": "Subject",
     "content": "Content",
-    "recipients": "Recipients"
+    "recipients": "Recipients",
+    "addToCampaign": "Add to campaign",
+    "createNewCampaign": "Create a new campaign",
+    "createNewCampaignDescription": "Add your customers and create a marketing campaign",
+    "createCampaign": "Create Campaign",
+    "campaignNamePlaceholder": "your campaign name",
+    "credits": "credits",
+    "created": "Created",
+    "customersAdded": "customers added",
+    "editEmail": "Edit Email",
+    "editEmailDescription": "This email will be sent to campaign members",
+    "send": "Send",
+    "id": "Id",
+    "email": "Email",
+    "answers": "Answers",
+    "domain": "Domain",
+    "answersDescription": "Customer answers are stored by the bot when your customers respond back to the questions asked by the bot.",
+    "view": "View"
   },
   "settings": {
     "title": "Settings",
@@ -149,7 +181,10 @@
     "connect": "Connect",
     "disconnect": "Disconnect",
     "connected": "Connected",
-    "notConnected": "Not Connected"
+    "notConnected": "Not Connected",
+    "stripeDescription": "Stripe is the fastest and easiest way to integrate payments and financial services into your software platform or marketplace.",
+    "connectStripeAccount": "Connect Stripe Account",
+    "stripeModalDescription": "The world's most successful platforms and marketplaces including Shopify and DoorDash, use Stripe Connect."
   },
   "chatbot": {
     "title": "Chatbot",

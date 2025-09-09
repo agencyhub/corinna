@@ -1,9 +1,9 @@
 'use client'
-import { Headphones, Star, Trash } from 'lucide-react'
-import { usePathname } from 'next/navigation'
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
-import { Card } from '../ui/card'
-import BreadCrumb from './bread-crumb'
+import { Headphones, Star, Trash } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { Card } from '../ui/card';
+import BreadCrumb from './bread-crumb';
 
 type Props = {}
 
@@ -12,7 +12,7 @@ const InfoBar = (props: Props) => {
   const isConversationPage = pathname.includes('/conversation')
 
   return (
-    <div className="flex w-full justify-between items-center p-6 lg:p-8 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+    <div className="flex w-full justify-between items-center p-4 lg:p-5.5 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
       <BreadCrumb />
       <div className="flex items-center gap-4">
         {/* Only show conversation-specific buttons on conversation page */}

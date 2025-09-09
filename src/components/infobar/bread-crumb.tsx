@@ -19,9 +19,9 @@ const BreadCrumb = (props: Props) => {
   } = useSideBar()
   const t = useTranslations()
   return (
-    <div className="flex flex-col ">
-      <div className="flex gap-5 items-center">
-        <h2 className="text-3xl font-bold capitalize">
+    <div className="flex flex-col">
+      <div className="flex gap-4 items-center">
+        <h2 className="text-xl font-semibold capitalize">
           {page == 'settings'
             ? t('navigation.settings')
             : page == 'dashboard'
@@ -47,7 +47,7 @@ const BreadCrumb = (props: Props) => {
           </Loader>
         )}
       </div>
-      <p className="text-gray-500 text-sm">
+      {/* <p className="text-gray-500 text-sm">
         {page == 'settings'
           ? t('breadcrumb.settings')
           : page == 'dashboard'
@@ -59,7 +59,7 @@ const BreadCrumb = (props: Props) => {
           : page == 'integration'
           ? t('breadcrumb.integration')
           : t('breadcrumb.conversation')}
-      </p>
+      </p> */}
     </div>
   )
 }

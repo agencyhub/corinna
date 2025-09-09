@@ -81,13 +81,13 @@ export const HELP_DESK_TABS_MENU: TABS_MENU_PROPS[] = [
 ]
 
 export const APPOINTMENT_TABLE_HEADER = [
-  'Name',
-  'RequestedTime',
-  'Added Time',
-  'Domain',
+  'name',
+  'requestedTime',
+  'addedTime',
+  'domain',
 ]
 
-export const EMAIL_MARKETING_HEADER = ['Id', 'Email', 'Answers', 'Domain']
+export const EMAIL_MARKETING_HEADER = ['id', 'email', 'answers', 'domain']
 
 export const BOT_TABS_MENU: TABS_MENU_PROPS[] = [
   {

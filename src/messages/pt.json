@@ -85,7 +85,15 @@
     "startConversation": "Iniciar conversa",
     "lastMessage": "Última mensagem",
     "unread": "Não lida",
-    "archived": "Arquivada"
+    "archived": "Arquivada",
+    "noConversationsYet": "Ainda não há conversas",
+    "startChattingDescription": "Comece a conversar com seus clientes para ver as conversas aqui.",
+    "allConversations": "Todas as Conversas",
+    "allConversationsDescription": "Todas as conversas aparecerão aqui",
+    "expiredConversations": "Conversas Expiradas",
+    "expiredConversationsDescription": "Conversas expiradas aparecerão aqui",
+    "starredConversations": "Conversas Favoritas",
+    "starredConversationsDescription": "Conversas favoritas aparecerão aqui"
   },
   "appointments": {
     "title": "Agendamentos",
@@ -104,7 +112,14 @@
     "bookingsTodayDescription": "Todos os seus agendamentos para hoje estão mencionados abaixo.",
     "created": "Criado",
     "domain": "Domínio",
-    "noAppointmentsToday": "Nenhum agendamento para hoje"
+    "noAppointmentsToday": "Nenhum agendamento para hoje",
+    "allAppointments": "Todos os Agendamentos",
+    "allAppointmentsDescription": "Visualize e gerencie todos os seus agendamentos",
+    "noAppointmentsFound": "Nenhum Agendamento Encontrado",
+    "name": "Nome",
+    "requestedTime": "Horário Solicitado",
+    "addedTime": "Horário Adicionado",
+    "loading": "Carregando agendamentos..."
   },
   "emailMarketing": {
     "title": "Email Marketing",
@@ -116,7 +131,24 @@
     "sendEmail": "Enviar E-mail",
     "subject": "Assunto",
     "content": "Conteúdo",
-    "recipients": "Destinatários"
+    "recipients": "Destinatários",
+    "addToCampaign": "Adicionar à campanha",
+    "createNewCampaign": "Criar nova campanha",
+    "createNewCampaignDescription": "Adicione seus clientes e crie uma campanha de marketing",
+    "createCampaign": "Criar Campanha",
+    "campaignNamePlaceholder": "nome da sua campanha",
+    "credits": "créditos",
+    "created": "Criado",
+    "customersAdded": "clientes adicionados",
+    "editEmail": "Editar E-mail",
+    "editEmailDescription": "Este e-mail será enviado para os membros da campanha",
+    "send": "Enviar",
+    "id": "ID",
+    "email": "E-mail",
+    "answers": "Respostas",
+    "domain": "Domínio",
+    "answersDescription": "As respostas dos clientes são armazenadas pelo bot quando seus clientes respondem às perguntas feitas pelo bot.",
+    "view": "Ver"
   },
   "settings": {
     "title": "Configurações",
@@ -149,7 +181,10 @@
     "connect": "Conectar",
     "disconnect": "Desconectar",
     "connected": "Conectado",
-    "notConnected": "Não Conectado"
+    "notConnected": "Não Conectado",
+    "stripeDescription": "Stripe é a forma mais rápida e fácil de integrar pagamentos e serviços financeiros na sua plataforma de software ou marketplace.",
+    "connectStripeAccount": "Conectar Conta Stripe",
+    "stripeModalDescription": "As plataformas e marketplaces de maior sucesso do mundo, incluindo Shopify e DoorDash, usam Stripe Connect."
   },
   "chatbot": {
     "title": "Chatbot",

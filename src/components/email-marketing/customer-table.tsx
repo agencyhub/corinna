@@ -1,12 +1,11 @@
 'use client'
-import React from 'react'
-import { DataTable } from '../table'
 import { EMAIL_MARKETING_HEADER } from '@/constants/menu'
-import { TableCell, TableRow } from '../ui/table'
-import { Card } from '../ui/card'
 import { cn } from '@/lib/utils'
-import { Button } from '../ui/button'
+import { useTranslations } from 'next-intl'
 import { SideSheet } from '../sheet'
+import { DataTable } from '../table'
+import { Card } from '../ui/card'
+import { TableCell, TableRow } from '../ui/table'
 import Answers from './answers'
 
 type CustomerTableProps = {
@@ -32,8 +31,9 @@ export const CustomerTable = ({
   onId,
   id,
 }: CustomerTableProps) => {
+  const t = useTranslations('emailMarketing')
   return (
-    <DataTable headers={EMAIL_MARKETING_HEADER}>
+    <DataTable headers={EMAIL_MARKETING_HEADER.map(header => t(header))}>
       {domains.map((domain) =>
         domain.customer.map((c) => (
           <TableRow key={c.id}>
@@ -49,14 +49,14 @@ export const CustomerTable = ({
             <TableCell>{c.email}</TableCell>
             <TableCell>
               <SideSheet
-                title="Answers"
-                description="Customer answers are stored by the bot when your customers respond back to the questions asked by the bot."
+                title={t('answers', { default: 'Answers' })}
+                description={t('answersDescription', { default: 'Customer answers are stored by the bot when your customers respond back to the questions asked by the bot.' })}
                 trigger={
                   <Card
                     className="bg-grandis py-2 px-4 cursor-pointer text-gray-700 hover:bg-orange"
                     onClick={() => onId(c.id)}
                   >
-                    View
+                    {t('view', { default: 'View' })}
                   </Card>
                 }
               >

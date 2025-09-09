@@ -1,8 +1,8 @@
-import { SIDE_BAR_MENU } from '@/constants/menu'
-import { LogOut, Menu, MonitorSmartphone } from 'lucide-react'
-import Image from 'next/image'
-import DomainMenu from './domain-menu'
-import MenuItem from './menu-item'
+import { SIDE_BAR_MENU } from '@/constants/menu';
+import { LogOut, Menu, MonitorSmartphone } from 'lucide-react';
+import Image from 'next/image';
+import DomainMenu from './domain-menu';
+import MenuItem from './menu-item';
 
 type Props = {
   onExpand(): void
@@ -22,7 +22,7 @@ const MaxMenu = ({ current, domains, onExpand, onSignOut }: Props) => {
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
-      <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800">
+      <div className="flex items-center justify-between p-[18px] border-b border-gray-200 dark:border-gray-800">
         <Image
           src="/images/logo.png"
           alt="Corinna AI Logo"
