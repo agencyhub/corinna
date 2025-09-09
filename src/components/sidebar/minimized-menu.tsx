@@ -1,6 +1,5 @@
 import { SIDE_BAR_MENU } from '@/constants/menu'
-import { LogOut, Menu, MonitorSmartphone } from 'lucide-react'
-import Image from 'next/image'
+import { Bot, LogOut, Menu, MonitorSmartphone } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
 import DomainMenu from './domain-menu'
 import MenuItem from './menu-item'
@@ -37,20 +36,14 @@ export const MinMenu = ({
 
   return (
     <div className="p-3 flex flex-col items-center h-full">
-      {/* Header with logo and expand button */}
+      {/* Header with icon and expand button */}
       <div className="flex flex-col items-center w-full mb-4 space-y-3">
         <button
           onClick={handleLogoClick}
-          className="cursor-pointer hover:opacity-80 transition-opacity"
+          className="cursor-pointer hover:opacity-80 transition-opacity p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
           title="Go to Dashboard"
         >
-          <Image
-            src="/images/logo.png"
-            alt="Corinna AI Logo"
-            width={40}
-            height={40}
-            className="h-8 w-8 object-contain animate-fade-in opacity-0 delay-300 fill-mode-forwards"
-          />
+          <Bot className="h-6 w-6 text-gray-600 dark:text-gray-400 animate-fade-in opacity-0 delay-300 fill-mode-forwards" />
         </button>
         <button
           onClick={onShrink}
