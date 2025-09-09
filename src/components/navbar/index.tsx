@@ -1,5 +1,6 @@
 'use client'
 
+import { LanguageSwitcher } from '@/components/language-switcher'
 import { Menu, X } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -34,6 +35,7 @@ function NavBar() {
 
           {/* Desktop CTA + Mobile Menu Button */}
           <div className="flex items-center gap-4">
+            <LanguageSwitcher />
             <Link
               href="/dashboard"
               className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg font-medium transition-all duration-200 shadow-soft hover:shadow-medium hover:scale-105 text-sm"

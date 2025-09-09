@@ -10,10 +10,12 @@ const IntegrationsPage = async () => {
   }
 
   return (
-    <>
+    <div className="flex flex-col h-full">
       <InfoBar />
-      <IntegrationsList connections={connections} />
-    </>
+      <div className="flex-1 overflow-y-auto">
+        <IntegrationsList connections={connections} />
+      </div>
+    </div>
   )
 }
 

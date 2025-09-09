@@ -1,28 +1,31 @@
 import { authMiddleware } from '@clerk/nextjs';
+import createIntlMiddleware from 'next-intl/middleware';
+
+const intlMiddleware = createIntlMiddleware({
+  locales: ['en', 'pt'],
+  defaultLocale: 'pt'
+});
 
 export default authMiddleware({
+  beforeAuth: (req) => {
+    return intlMiddleware(req);
+  },
   publicRoutes: [
     '/',
-    '/auth(.*)',
-    '/portal(.*)',
-    '/images(.*)',
-    // Embed routes must be public
-    '/api/embed',
+    '/pt',
+    '/en',
+    '/pt/auth/(.*)',
+    '/en/auth/(.*)',
+    '/api/webhooks/(.*)',
+    '/api/stripe/(.*)',
     '/embed.js',
+    '/portal/(.*)',
     '/chatbot',
     '/chatbot-iframe',
-  ],
-  // Explicitly ignore embed routes from auth checks
-  ignoredRoutes: ['/chatbot', '/chatbot-iframe', '/api/embed', '/embed.js'],
-})
+    '/blogs/(.*)'
+  ]
+});
 
 export const config = {
-  // Exclude all static assets with extensions and Next internals from middleware
-  matcher: [
-    // Everything except files with extensions and _next
-    '/((?!_next/|_vercel|.*\\..*).*)',
-    '/',
-    // Apply to API and trpc routes, but embed routes will be ignored by ignoredRoutes
-    '/(api|trpc)(.*)'
-  ],
-}
+  matcher: ['/', '/(pt|en)/:path*', '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)', '/(api|trpc)(.*)']
+};

@@ -1,0 +1,178 @@
+{
+  "common": {
+    "loading": "Carregando...",
+    "error": "Erro",
+    "success": "Sucesso",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "delete": "Excluir",
+    "edit": "Editar",
+    "create": "Criar",
+    "back": "Voltar",
+    "next": "Próximo",
+    "previous": "Anterior",
+    "search": "Pesquisar",
+    "filter": "Filtrar",
+    "clear": "Limpar",
+    "confirm": "Confirmar",
+    "yes": "Sim",
+    "no": "Não"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "conversations": "Conversas",
+    "appointments": "Agendamentos",
+    "emailMarketing": "Email Marketing",
+    "integrations": "Integrações",
+    "settings": "Configurações",
+    "help": "Ajuda",
+    "logout": "Sair"
+  },
+  "auth": {
+    "signIn": "Entrar",
+    "signUp": "Cadastrar",
+    "signOut": "Sair",
+    "forgotPassword": "Esqueci minha senha",
+    "resetPassword": "Redefinir senha",
+    "email": "E-mail",
+    "password": "Senha",
+    "confirmPassword": "Confirmar senha",
+    "firstName": "Nome",
+    "lastName": "Sobrenome",
+    "welcomeBack": "Bem-vindo de volta",
+    "createAccount": "Criar conta",
+    "alreadyHaveAccount": "Já tem uma conta?",
+    "dontHaveAccount": "Não tem uma conta?",
+    "signInWithGoogle": "Entrar com Google",
+    "signUpWithGoogle": "Cadastrar com Google",
+    "welcomeMessage": "Olá, eu sou a Corinna, sua assistente de vendas com IA!",
+    "description": "A Corinna é capaz de capturar informações de leads sem formulário. Isso nunca foi feito antes 😉"
+  },
+  "dashboard": {
+    "welcome": "Bem-vindo ao Corinna AI",
+    "totalConversations": "Total de Conversas",
+    "activeUsers": "Usuários Ativos",
+    "responseTime": "Tempo de Resposta",
+    "satisfactionRate": "Taxa de Satisfação",
+    "recentActivity": "Atividade Recente",
+    "quickActions": "Ações Rápidas",
+    "potentialClients": "Clientes Potenciais",
+    "pipelineValue": "Valor do Pipeline",
+    "appointments": "Agendamentos",
+    "totalSales": "Vendas Totais",
+    "planUsage": "Uso do Plano",
+    "planUsageDescription": "Uma visão detalhada das suas métricas, uso, clientes e muito mais",
+    "recentTransactions": "Transações Recentes",
+    "seeMore": "Ver mais",
+    "noRecentTransactions": "Nenhuma transação recente",
+    "errorTitle": "Ops! Algo deu errado",
+    "errorDescription": "Estamos tendo problemas para conectar ao banco de dados. Tente novamente mais tarde."
+  },
+  "conversations": {
+    "title": "Conversas",
+    "newConversation": "Nova Conversa",
+    "searchConversations": "Pesquisar conversas...",
+    "noConversations": "Nenhuma conversa encontrada",
+    "startConversation": "Iniciar conversa",
+    "lastMessage": "Última mensagem",
+    "unread": "Não lida",
+    "archived": "Arquivada"
+  },
+  "appointments": {
+    "title": "Agendamentos",
+    "newAppointment": "Novo Agendamento",
+    "upcoming": "Próximos",
+    "past": "Passados",
+    "cancelled": "Cancelados",
+    "noAppointments": "Nenhum agendamento encontrado",
+    "scheduleAppointment": "Agendar",
+    "date": "Data",
+    "time": "Hora",
+    "client": "Cliente",
+    "service": "Serviço",
+    "status": "Status"
+  },
+  "emailMarketing": {
+    "title": "Email Marketing",
+    "campaigns": "Campanhas",
+    "subscribers": "Inscritos",
+    "templates": "Modelos",
+    "analytics": "Analytics",
+    "newCampaign": "Nova Campanha",
+    "sendEmail": "Enviar E-mail",
+    "subject": "Assunto",
+    "content": "Conteúdo",
+    "recipients": "Destinatários"
+  },
+  "settings": {
+    "title": "Configurações",
+    "profile": "Perfil",
+    "account": "Conta",
+    "billing": "Cobrança",
+    "notifications": "Notificações",
+    "privacy": "Privacidade",
+    "security": "Segurança",
+    "api": "API",
+    "integrations": "Integrações",
+    "general": "Geral",
+    "appearance": "Aparência",
+    "language": "Idioma",
+    "timezone": "Fuso Horário"
+  },
+  "chatbot": {
+    "title": "Chatbot",
+    "startChat": "Iniciar Chat",
+    "typeMessage": "Digite sua mensagem...",
+    "send": "Enviar",
+    "thinking": "Pensando...",
+    "typing": "Digitando...",
+    "online": "Online",
+    "offline": "Offline",
+    "welcomeMessage": "Olá! Como posso ajudá-lo hoje?",
+    "endChat": "Encerrar Chat"
+  },
+  "landing": {
+    "hero": {
+      "title": "Transforme seu atendimento com IA",
+      "subtitle": "Corinna AI é a solução completa para automatizar conversas, agendar compromissos e impulsionar vendas com inteligência artificial.",
+      "getStarted": "Começar Agora",
+      "learnMore": "Saiba Mais",
+      "watchDemo": "Assistir Demo"
+    },
+    "features": {
+      "title": "Recursos Poderosos",
+      "subtitle": "Tudo que você precisa para revolucionar seu atendimento ao cliente",
+      "chatbot": {
+        "title": "Chatbot Inteligente",
+        "description": "IA avançada que entende e responde perguntas complexas em tempo real"
+      },
+      "appointments": {
+        "title": "Agendamento Automático",
+        "description": "Sistema completo de agendamento integrado ao seu calendário"
+      },
+      "analytics": {
+        "title": "Analytics Avançado",
+        "description": "Métricas detalhadas para otimizar seu atendimento"
+      },
+      "integrations": {
+        "title": "Integrações",
+        "description": "Conecte com suas ferramentas favoritas"
+      }
+    },
+    "pricing": {
+      "title": "Preços Simples",
+      "subtitle": "Escolha o plano ideal para seu negócio",
+      "monthly": "Mensal",
+      "yearly": "Anual",
+      "getStarted": "Começar",
+      "mostPopular": "Mais Popular"
+    },
+    "footer": {
+      "company": "Empresa",
+      "product": "Produto",
+      "support": "Suporte",
+      "legal": "Legal",
+      "allRightsReserved": "Todos os direitos reservados"
+    }
+  }
+}

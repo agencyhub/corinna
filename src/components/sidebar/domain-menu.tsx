@@ -1,14 +1,13 @@
 import { useDomain } from '@/hooks/sidebar/use-domain'
 import { cn } from '@/lib/utils'
-import React from 'react'
-import AppDrawer from '../drawer'
 import { Plus } from 'lucide-react'
-import { Loader } from '../loader'
-import FormGenerator from '../forms/form-generator'
-import UploadButton from '../upload-button'
-import { Button } from '../ui/button'
-import Link from 'next/link'
 import Image from 'next/image'
+import Link from 'next/link'
+import AppDrawer from '../drawer'
+import FormGenerator from '../forms/form-generator'
+import { Loader } from '../loader'
+import { Button } from '../ui/button'
+import UploadButton from '../upload-button'
 
 type Props = {
   min?: boolean
@@ -26,14 +25,14 @@ const DomainMenu = ({ domains, min }: Props) => {
   const { register, onAddDomain, loading, errors, isDomain } = useDomain()
 
   return (
-    <div className={cn('flex flex-col gap-3', min ? 'mt-6' : 'mt-3')}>
-      <div className="flex justify-between w-full items-center">
+    <div className={cn('flex flex-col gap-3', min ? 'mt-6 items-center' : 'mt-3')}>
+      <div className={cn('flex items-center', min ? 'justify-center w-full' : 'justify-between w-full')}>
         {!min && <p className="text-xs text-gray-500">DOMAINS</p>}
         <AppDrawer
           description="add in your domain address to integrate your chatbot"
           title="Add your business domain"
           onOpen={
-            <div className="cursor-pointer text-gray-500 rounded-full border-2">
+            <div className="cursor-pointer text-gray-500 rounded-full border-2 flex items-center justify-center w-8 h-8">
               <Plus />
             </div>
           }
@@ -67,15 +66,15 @@ const DomainMenu = ({ domains, min }: Props) => {
           </Loader>
         </AppDrawer>
       </div>
-      <div className="flex flex-col gap-1 text-ironside font-medium">
+      <div className={cn('flex flex-col gap-1 text-ironside font-medium', min && 'items-center')}>
         {domains &&
           domains.map((domain) => (
             <Link
               href={`/settings/${domain.name.split('.')[0]}`}
               key={domain.id}
               className={cn(
-                'flex gap-3 hover:bg-white rounded-full transition duration-100 ease-in-out cursor-pointer ',
-                !min ? 'p-2' : 'py-2',
+                'flex gap-3 hover:bg-white rounded-full transition duration-100 ease-in-out cursor-pointer items-center',
+                !min ? 'p-2' : 'py-2 justify-center',
                 domain.name.split('.')[0] == isDomain && 'bg-white'
               )}
             >

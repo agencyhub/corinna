@@ -1,0 +1,178 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "search": "Search",
+    "filter": "Filter",
+    "clear": "Clear",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "conversations": "Conversations",
+    "appointments": "Appointments",
+    "emailMarketing": "Email Marketing",
+    "integrations": "Integrations",
+    "settings": "Settings",
+    "help": "Help",
+    "logout": "Logout"
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out",
+    "forgotPassword": "Forgot Password",
+    "resetPassword": "Reset Password",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "welcomeBack": "Welcome Back",
+    "createAccount": "Create Account",
+    "alreadyHaveAccount": "Already have an account?",
+    "dontHaveAccount": "Don't have an account?",
+    "signInWithGoogle": "Sign in with Google",
+    "signUpWithGoogle": "Sign up with Google",
+    "welcomeMessage": "Hi, I'm Corinna your AI powered sales assistant!",
+    "description": "Corinna is capable of capturing lead information without a form. This is something never done before 😉"
+  },
+  "dashboard": {
+    "welcome": "Welcome to Corinna AI",
+    "totalConversations": "Total Conversations",
+    "activeUsers": "Active Users",
+    "responseTime": "Response Time",
+    "satisfactionRate": "Satisfaction Rate",
+    "recentActivity": "Recent Activity",
+    "quickActions": "Quick Actions",
+    "potentialClients": "Potential Clients",
+    "pipelineValue": "Pipeline Value",
+    "appointments": "Appointments",
+    "totalSales": "Total Sales",
+    "planUsage": "Plan Usage",
+    "planUsageDescription": "A detailed overview of your metrics, usage, customers and more",
+    "recentTransactions": "Recent Transactions",
+    "seeMore": "See more",
+    "noRecentTransactions": "No recent transactions",
+    "errorTitle": "Oops! Something went wrong",
+    "errorDescription": "We're having trouble connecting to the database. Please try again later."
+  },
+  "conversations": {
+    "title": "Conversations",
+    "newConversation": "New Conversation",
+    "searchConversations": "Search conversations...",
+    "noConversations": "No conversations found",
+    "startConversation": "Start conversation",
+    "lastMessage": "Last message",
+    "unread": "Unread",
+    "archived": "Archived"
+  },
+  "appointments": {
+    "title": "Appointments",
+    "newAppointment": "New Appointment",
+    "upcoming": "Upcoming",
+    "past": "Past",
+    "cancelled": "Cancelled",
+    "noAppointments": "No appointments found",
+    "scheduleAppointment": "Schedule",
+    "date": "Date",
+    "time": "Time",
+    "client": "Client",
+    "service": "Service",
+    "status": "Status"
+  },
+  "emailMarketing": {
+    "title": "Email Marketing",
+    "campaigns": "Campaigns",
+    "subscribers": "Subscribers",
+    "templates": "Templates",
+    "analytics": "Analytics",
+    "newCampaign": "New Campaign",
+    "sendEmail": "Send Email",
+    "subject": "Subject",
+    "content": "Content",
+    "recipients": "Recipients"
+  },
+  "settings": {
+    "title": "Settings",
+    "profile": "Profile",
+    "account": "Account",
+    "billing": "Billing",
+    "notifications": "Notifications",
+    "privacy": "Privacy",
+    "security": "Security",
+    "api": "API",
+    "integrations": "Integrations",
+    "general": "General",
+    "appearance": "Appearance",
+    "language": "Language",
+    "timezone": "Timezone"
+  },
+  "chatbot": {
+    "title": "Chatbot",
+    "startChat": "Start Chat",
+    "typeMessage": "Type your message...",
+    "send": "Send",
+    "thinking": "Thinking...",
+    "typing": "Typing...",
+    "online": "Online",
+    "offline": "Offline",
+    "welcomeMessage": "Hello! How can I help you today?",
+    "endChat": "End Chat"
+  },
+  "landing": {
+    "hero": {
+      "title": "Transform your customer service with AI",
+      "subtitle": "Corinna AI is the complete solution to automate conversations, schedule appointments and boost sales with artificial intelligence.",
+      "getStarted": "Get Started",
+      "learnMore": "Learn More",
+      "watchDemo": "Watch Demo"
+    },
+    "features": {
+      "title": "Powerful Features",
+      "subtitle": "Everything you need to revolutionize your customer service",
+      "chatbot": {
+        "title": "Smart Chatbot",
+        "description": "Advanced AI that understands and responds to complex questions in real time"
+      },
+      "appointments": {
+        "title": "Automatic Scheduling",
+        "description": "Complete scheduling system integrated with your calendar"
+      },
+      "analytics": {
+        "title": "Advanced Analytics",
+        "description": "Detailed metrics to optimize your customer service"
+      },
+      "integrations": {
+        "title": "Integrations",
+        "description": "Connect with your favorite tools"
+      }
+    },
+    "pricing": {
+      "title": "Simple Pricing",
+      "subtitle": "Choose the ideal plan for your business",
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "getStarted": "Get Started",
+      "mostPopular": "Most Popular"
+    },
+    "footer": {
+      "company": "Company",
+      "product": "Product",
+      "support": "Support",
+      "legal": "Legal",
+      "allRightsReserved": "All rights reserved"
+    }
+  }
+}

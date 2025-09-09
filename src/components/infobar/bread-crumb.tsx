@@ -1,6 +1,5 @@
 'use client'
 import useSideBar from '@/context/use-sidebar'
-import React from 'react'
 import { Loader } from '../loader'
 import { Switch } from '../ui/switch'
 

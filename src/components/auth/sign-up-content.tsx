@@ -1,13 +1,20 @@
+'use client'
+
 import ButtonHandler from '@/components/forms/sign-up/button-handlers'
 import SignUpFormProvider from '@/components/forms/sign-up/form-provider'
 import HighLightBar from '@/components/forms/sign-up/highlight-bar'
 import RegistrationFormStep from '@/components/forms/sign-up/registration-step'
 
-import React from 'react'
-
 type Props = {}
 
-const SignUp = (props: Props) => {
+export function SignUpContent(props: Props) {
+  // Conteúdo em português
+  const t = {
+    signUp: "Criar conta",
+    alreadyHaveAccount: "Já tem uma conta?",
+    signIn: "Entrar"
+  }
+
   return (
     <div className="flex-1 py-36 md:px-16 w-full">
       <div className="flex flex-col h-full gap-3">
@@ -22,5 +29,3 @@ const SignUp = (props: Props) => {
     </div>
   )
 }
-
-export default SignUp
